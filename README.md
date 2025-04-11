@@ -20,12 +20,15 @@ bunx @vahor/next-broken-links
 
 It will output the following:
 
-```
-TODO
+```bash
+✔ Extracted links from all pages
+✔ No broken links found
 ```
 
 If you have broken links, it will output the following:
 
 ```
-TODO
+✔ Extracted links from all pages
+✖ error Found 1 broken links
+        /path/to/page.html: broken-link
 ```
