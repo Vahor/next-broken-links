@@ -24,3 +24,7 @@ jobs:
       - name: Build example
         run: bun run build
         working-directory: examples/static-export
+      - name: Check links
+        # expect to fail
+        run: (bun run ../../packages/next-broken-links/dist/index.js && exit 1) || exit 0
+        working-directory: examples/static-export

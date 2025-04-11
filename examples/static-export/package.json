@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build && bun run ../../packages/next-broken-links/dist/index.js",
+		"build": "next build",
 		"start": "next start",
 		"lint": "next lint"
 	},
