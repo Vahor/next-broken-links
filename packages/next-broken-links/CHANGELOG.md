@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.0.2
+
+### Patch Changes
+
+- [`9a94080`](https://github.com/Vahor/next-broken-links/commit/9a9408054faf546c9268c1cf9d6fb00a9e140896) Thanks [@Vahor](https://github.com/Vahor)! - fix add node shebang
+
 ## 0.0.1
 
 ### Patch Changes
