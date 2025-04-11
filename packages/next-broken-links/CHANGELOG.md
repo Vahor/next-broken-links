@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.0.3
+
+### Patch Changes
+
+- [`67fbcfc`](https://github.com/Vahor/next-broken-links/commit/67fbcfc386f6a409eeb6942c13e10a2cf29a081a) Thanks [@Vahor](https://github.com/Vahor)! - minify
+
 ## 0.0.2
 
 ### Patch Changes
