@@ -1,5 +1,4 @@
 import type { BuildConfig } from "bun";
-import dts, { type Options as DtsOptions } from "bun-plugin-dts";
 
 const defaultBuildConfig: BuildConfig = {
 	target: "node",
@@ -8,22 +7,14 @@ const defaultBuildConfig: BuildConfig = {
 	packages: "external",
 };
 
-const dtsConfig: DtsOptions = {
-	output: {
-		noBanner: true,
-	},
-};
+const addShebang = async (code: string) =>
+	`#!/usr/bin/env node\n${await Bun.file(code).text()}`;
 
 await Promise.all([
 	Bun.build({
 		...defaultBuildConfig,
-		plugins: [dts(dtsConfig)],
 		format: "esm",
 		naming: "[dir]/[name].js",
 	}),
-	Bun.build({
-		...defaultBuildConfig,
-		format: "cjs",
-		naming: "[dir]/[name].cjs",
-	}),
 ]);
+await Bun.write("dist/index.js", await addShebang("./dist/index.js"));
