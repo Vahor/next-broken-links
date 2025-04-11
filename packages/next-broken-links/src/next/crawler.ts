@@ -29,7 +29,7 @@ export const extractLinks = async (
 ) => {
 	const fullPath = join(config._vahor.cwd, filePath);
 	const html = await readFile(fullPath, "utf8");
-	const links = new Set<Link>();
+	const links = new Map<string, Link>();
 	while (true) {
 		const match = HREF_REGEX.exec(html);
 		if (!match) {
@@ -37,7 +37,7 @@ export const extractLinks = async (
 		}
 		const link = match[1];
 		if (!isInternalLink(link)) continue;
-		links.add({ type: "link", value: link });
+		links.set(link, { type: "link", value: link });
 	}
 	while (true) {
 		const match = IMAGE_REGEX.exec(html);
@@ -46,9 +46,9 @@ export const extractLinks = async (
 		}
 		const link = match[1];
 		if (!isInternalLink(link)) continue;
-		links.add({ type: "image", value: link });
+		links.set(link, { type: "image", value: link });
 	}
-	return { file: filePath, links: Array.from(links) };
+	return { file: filePath, links: Array.from(links.values()) };
 };
 
 const isInternalLink = (link: string | undefined): link is string => {
