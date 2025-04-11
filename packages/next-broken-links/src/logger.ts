@@ -24,7 +24,7 @@ interface ProgressOptions {
 	success?: string;
 }
 
-export const withProgess = async <T>(
+export const withProgress = async <T>(
 	promises: Promise<T>[],
 	{ title, progress, success }: ProgressOptions,
 ): Promise<T[]> => {

@@ -1,6 +1,6 @@
 import { Command } from "@commander-js/extra-typings";
 import packageJson from "../package.json" assert { type: "json" };
-import { debug, error, success, withProgess } from "./logger";
+import { debug, error, success, withProgress } from "./logger";
 import { checkValidLinks, crawlNextOutput, extractLinks } from "./next/crawler";
 import parseNextConfig from "./next/parse-next-config";
 
@@ -21,7 +21,7 @@ const main = async () => {
 	const config = parseNextConfig(options.config);
 	const htmlPages = crawlNextOutput(config);
 
-	const allLinks = await withProgess(
+	const allLinks = await withProgress(
 		htmlPages.map((file) => extractLinks(file, config)),
 		{
 			title: "Extracting links",
@@ -34,7 +34,7 @@ const main = async () => {
 	debug(JSON.stringify(allLinks, null, 2));
 
 	const result = (
-		await withProgess([checkValidLinks(allLinks)], {
+		await withProgress([checkValidLinks(allLinks)], {
 			title: "Checking links",
 			progress: (completed) =>
 				`Checking links: ${completed}/${allLinks.length}`,
