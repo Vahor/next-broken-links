@@ -1,0 +1,37 @@
+{
+	"name": "@vahor/next-broken-links",
+	"version": "0.0.0",
+	"description": "A tool to find broken links in your Next.js project",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Vahor/next-broken-links.git"
+	},
+	"module": "index.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"main": "./dist/index.cjs",
+	"bin": {
+		"@vahor/next-broken-links": "./dist/index.js"
+	},
+	"private": false,
+	"files": ["dist"],
+	"author": {
+		"email": "me@vahor.fr"
+	},
+	"keywords": ["next", "cli", "linter"],
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"scripts": {
+		"build": "bun run build.ts"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

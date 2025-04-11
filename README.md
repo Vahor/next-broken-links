@@ -10,18 +10,12 @@ This is a CLI tool that will check broken links in your Next.js project.\
 
 The experimental nextjs [Statically Typed Links](https://nextjs.org/docs/app/api-reference/config/typescript#statically-typed-links) feature is not enough for catch all segments. This tool helps in that case.
 
-## Installation
-
-```bash
-bun add -D @vahor/next-broken-links
-```
-
 ## Usage
 
 After a nextjs build, run the following command:
 
 ```bash
-next-broken-links
+bunx @vahor/next-broken-links
 ```
 
 It will output the following:
