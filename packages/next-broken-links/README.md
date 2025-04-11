@@ -24,6 +24,10 @@ After a nextjs build, run the following command:
 ```bash
 bunx @vahor/next-broken-links
 ```
+or
+```bash
+bun next-broken-links
+```
 
 It will output the following:
 
