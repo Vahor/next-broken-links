@@ -1,23 +1,14 @@
 {
-	"name": "@vahor/next-broken-links",
-	"version": "0.0.8",
+	"name": "@vahor/next-broken-links-workspace",
+	"private": true,
+	"version": "0.0.0",
 	"description": "A tool to find broken links in your Next.js project",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Vahor/next-broken-links.git"
 	},
-	"workspaces": ["examples/*"],
-	"module": "index.ts",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"default": "./dist/index.js"
-		}
-	},
-	"main": "./dist/index.cjs",
-	"private": false,
+	"workspaces": ["examples/*", "packages/*"],
 	"files": ["dist"],
 	"author": {
 		"email": "me@vahor.fr"
@@ -37,14 +28,9 @@
 	},
 	"scripts": {
 		"prepare": "husky",
-		"build": "bun run build.ts",
-		"format": "bunx @biomejs/biome check ./ --write",
-		"typecheck": "tsc --noEmit --declaration"
+		"format": "bunx @biomejs/biome check ./ --write"
 	},
 	"lint-staged": {
 		"*": ["biome check --no-errors-on-unmatched --files-ignore-unknown=true"]
-	},
-	"publishConfig": {
-		"access": "public"
 	}
 }

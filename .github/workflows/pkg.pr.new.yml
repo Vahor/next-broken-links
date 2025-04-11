@@ -1,6 +1,8 @@
 name: Publish Pull Requests
 on:
   pull_request:
+  paths:
+    - "packages/**"
 
 jobs:
   publish:
@@ -15,5 +17,7 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Build package
         run: bun run build 
+        working-directory: packages/next-broken-links
       - name: Publish package
         run: bunx pkg-pr-new publish --packageManager=bun
+        working-directory: packages/next-broken-links
