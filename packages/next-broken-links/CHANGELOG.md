@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.0.4
+
+### Patch Changes
+
+- [`87deb21`](https://github.com/Vahor/next-broken-links/commit/87deb21a920181ab0f882b83e3707c5890eaa50f) Thanks [@Vahor](https://github.com/Vahor)! - update commander
+
 ## 0.0.3
 
 ### Patch Changes
