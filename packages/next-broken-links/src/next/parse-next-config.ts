@@ -40,7 +40,7 @@ export default function parseNextConfig(path: string) {
 		console.log(
 			`${error} Failed to read next config file: ${value(`'${cleanPath}'`)} `,
 		);
-		console.log(`\t${chalk.red(e.message)} `);
+		console.log(`\t${chalk.red((e as Error).message)} `);
 		process.exit(1);
 	}
 }

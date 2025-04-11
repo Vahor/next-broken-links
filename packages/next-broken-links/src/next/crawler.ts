@@ -1,7 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { globSync } from "tinyglobby";
-import type { Options } from "..";
 import { debug } from "../logger";
 import type { ExtendedNextConfig } from "./parse-next-config";
 
@@ -30,7 +29,7 @@ export const extractLinks = async (
 ) => {
 	const fullPath = join(config._vahor.cwd, filePath);
 	const html = await readFile(fullPath, "utf8");
-	const links = new Set<{ type: "link" | "image"; value: string }>();
+	const links = new Set<Link>();
 	while (true) {
 		const match = HREF_REGEX.exec(html);
 		if (!match) {
@@ -52,7 +51,8 @@ export const extractLinks = async (
 	return { file: filePath, links: Array.from(links) };
 };
 
-const isInternalLink = (link: string) => {
+const isInternalLink = (link: string | undefined): link is string => {
+	if (!link) return false;
 	return link.startsWith("/") && !link.startsWith("/_next/");
 };
 
