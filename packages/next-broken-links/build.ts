@@ -5,6 +5,7 @@ const defaultBuildConfig: BuildConfig = {
 	entrypoints: ["./src/index.ts"],
 	outdir: "./dist",
 	packages: "external",
+	minify: true,
 };
 
 const addShebang = async (code: string) =>

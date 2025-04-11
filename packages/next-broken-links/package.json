@@ -9,6 +9,7 @@
 		"directory": "packages/next-broken-links"
 	},
 	"module": "index.ts",
+	"type": "module",
 	"main": "./dist/index.js",
 	"bin": {
 		"@vahor/next-broken-links": "./dist/index.js"
