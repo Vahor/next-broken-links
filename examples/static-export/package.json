@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build && bunx @vahor/next-broken-links",
+		"build": "next build && bun run ../../packages/next-broken-links/dist/index.js",
 		"start": "next start",
 		"lint": "next lint"
 	},
@@ -17,7 +17,6 @@
 		"typescript": "^5",
 		"@types/node": "^20",
 		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"@vahor/next-broken-links": "workspace:*"
+		"@types/react-dom": "^19"
 	}
 }
