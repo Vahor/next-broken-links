@@ -26,6 +26,7 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Build package
         run: bun run build 
+        working-directory: packages/next-broken-links
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
