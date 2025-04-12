@@ -1,7 +1,7 @@
 import { statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import type { NextConfig } from "next";
-import { debug, toolName, value } from "../logger";
+import { debug, value } from "../logger";
 
 export interface ExtendedNextConfig extends NextConfig {
 	_vahor: {
@@ -45,7 +45,7 @@ export default async function parseNextConfig(
 		if (!pattern.test(finalPath)) {
 			// ts only works with bun
 			throw new Error(
-				`Invalid next config path: '${finalPath}'. Expected a path ending with ${value("'next.config.js'")} file (mjs, cjs, ts or js).`,
+				`Invalid next config path: ${value(finalPath)}. Expected a path ending with ${value("next.config.js")} file (mjs, cjs, ts or js).`,
 			);
 		}
 	}
@@ -60,8 +60,16 @@ export default async function parseNextConfig(
 	debug(JSON.stringify(config, null, 2));
 	checkSupportedConfiguration(config);
 
-	const outputDir = config.distDir || "out";
-	const cwd = join(dirname(cleanPath), outputDir);
+	let cwd: string;
+	if (config.output === "export") {
+		const outputDir = config.distDir || "out";
+		cwd = join(dirname(cleanPath), outputDir);
+	} else {
+		// if (config.output === undefined) {
+		const outputDir = config.distDir || ".next";
+		cwd = join(dirname(cleanPath), outputDir);
+		cwd = join(cwd, "server", "app");
+	}
 	return {
 		...config,
 		_vahor: {
@@ -71,9 +79,11 @@ export default async function parseNextConfig(
 }
 
 const checkSupportedConfiguration = (config: NextConfig) => {
-	if (config.output !== "export") {
+	if (!(config.output === "export" || config.output === undefined)) {
 		throw new Error(
-			`${toolName} only supports ${value("'export'")} output mode.`,
+			`Invalid export configuration, expected ${value(
+				"export",
+			)} or ${value("undefined")} but got ${value(config.output)}`,
 		);
 	}
 	return true;

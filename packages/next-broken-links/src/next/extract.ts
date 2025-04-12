@@ -78,14 +78,18 @@ export const extractLinks = async (
 	options: Options,
 ): Promise<Links> => {
 	const fullPath = join(config._vahor.cwd, filePath);
-	const raw = await readFile(fullPath, "utf8");
 	if (fullPath.endsWith(".html")) {
+		const raw = await readFile(fullPath, "utf8");
 		return {
 			file: filePath,
 			links: extractFromHtml(raw, options.domain),
 		};
 	}
-	if (fullPath.endsWith("sitemap.xml")) {
+	if (
+		fullPath.endsWith("sitemap.xml") ||
+		fullPath.endsWith("sitemap.xml.body")
+	) {
+		const raw = await readFile(fullPath, "utf8");
 		return {
 			file: filePath,
 			links: extractFromSitemap(raw, options.domain),
