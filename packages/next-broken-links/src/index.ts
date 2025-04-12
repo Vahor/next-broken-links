@@ -1,12 +1,12 @@
 import { Command } from "@commander-js/extra-typings";
-import packageJson from "../package.json" assert { type: "json" };
+import { name, version } from "../package.json" assert { type: "json" };
 import { debug, error, success, withProgress } from "./logger";
 import { checkValidLinks, crawlNextOutput, extractLinks } from "./next/crawler";
 import parseNextConfig from "./next/parse-next-config";
 
 const program = new Command()
-	.name(packageJson.name)
-	.version(packageJson.version)
+	.name(name)
+	.version(version)
 	.description("Find broken links in your Next.js project.")
 	.option("-c, --config <path>", "next.config.js path")
 	.option("-v, --verbose", "Enable verbose mode");
