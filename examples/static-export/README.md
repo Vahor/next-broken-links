@@ -7,6 +7,7 @@ This example shows how to use `next-broken-links` with `output: "export"`.
 ```bash
 bun install
 bun run build
+bun run ../../packages/next-broken-links/ # to run against the latest version
 ```
 
 You should see the following output:
@@ -25,4 +26,19 @@ This time, you should see the following output:
 ✔ No broken links found
 ```
 
+If you want to check links against a specific domain, you can use the `--domain` option:
 
+```bash
+bun run ../../packages/next-broken-links/  --domain vahor.fr
+```
+This time it will also check the sitemap.xml file as it contains only domain specific links.
+
+```bash
+✔ Parsed next config
+✔ Extracted links from all pages
+✔ Checked links
+✖ error Found 3 broken links
+        index.html: /hello/world/again
+        index.html: https://vahor.fr/this/also/fails
+        sitemap.xml: https://vahor.fr/this/should/fail
+```
