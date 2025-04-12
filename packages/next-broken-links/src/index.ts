@@ -1,7 +1,7 @@
 import { Command } from "@commander-js/extra-typings";
 import { name, version } from "../package.json" assert { type: "json" };
 import { debug, error, success, withProgress } from "./logger";
-import { crawlNextOutput } from "./next/crawler";
+import { crawlNextOutput, crawlPublicAssets } from "./next/crawler";
 import { extractLinks } from "./next/extract";
 import parseNextConfig from "./next/parse-next-config";
 import { checkValidLinks } from "./next/validate-links";
@@ -33,6 +33,7 @@ const main = async () => {
 		process.exit(1);
 	}
 	const htmlPages = crawlNextOutput(config);
+	const publicAssets = crawlPublicAssets(config);
 
 	const allLinks = await withProgress(
 		htmlPages.map((file) => extractLinks(file, config, options)),
@@ -46,8 +47,13 @@ const main = async () => {
 	debug(`Found ${allLinks.length} links`);
 	debug(JSON.stringify(allLinks, null, 2));
 
+	const allAssets = publicAssets.map((file) => ({
+		file,
+		links: [],
+	}));
+
 	const result = (
-		await withProgress([checkValidLinks(allLinks)], {
+		await withProgress([checkValidLinks([...allLinks, ...allAssets])], {
 			title: "Checking links",
 			progress: (completed) =>
 				`Checking links: ${completed}/${allLinks.length}`,

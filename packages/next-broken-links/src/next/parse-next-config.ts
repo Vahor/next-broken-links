@@ -5,7 +5,8 @@ import { debug, value } from "../logger";
 
 export interface ExtendedNextConfig extends NextConfig {
 	_vahor: {
-		cwd: string;
+		outputDir: string;
+		root: string;
 	};
 }
 
@@ -60,20 +61,21 @@ export default async function parseNextConfig(
 	debug(JSON.stringify(config, null, 2));
 	checkSupportedConfiguration(config);
 
-	let cwd: string;
+	let outputDir: string;
 	if (config.output === "export") {
-		const outputDir = config.distDir || "out";
-		cwd = join(dirname(cleanPath), outputDir);
+		outputDir = config.distDir || "out";
+		outputDir = join(dirname(cleanPath), outputDir);
 	} else {
 		// if (config.output === undefined) {
-		const outputDir = config.distDir || ".next";
-		cwd = join(dirname(cleanPath), outputDir);
-		cwd = join(cwd, "server", "app");
+		outputDir = config.distDir || ".next";
+		outputDir = join(dirname(cleanPath), outputDir);
+		outputDir = join(outputDir, "server", "app");
 	}
 	return {
 		...config,
 		_vahor: {
-			cwd,
+			outputDir,
+			root: dirname(cleanPath),
 		},
 	};
 }
