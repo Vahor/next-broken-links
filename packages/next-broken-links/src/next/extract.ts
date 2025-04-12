@@ -77,7 +77,7 @@ export const extractLinks = async (
 	config: ExtendedNextConfig,
 	options: Options,
 ): Promise<Links> => {
-	const fullPath = join(config._vahor.cwd, filePath);
+	const fullPath = join(config._vahor.outputDir, filePath);
 	if (fullPath.endsWith(".html")) {
 		const raw = await readFile(fullPath, "utf8");
 		return {
