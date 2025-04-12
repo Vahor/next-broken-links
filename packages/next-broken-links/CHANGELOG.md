@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.1.1
+
+### Patch Changes
+
+- [#19](https://github.com/Vahor/next-broken-links/pull/19) [`7a36101`](https://github.com/Vahor/next-broken-links/commit/7a36101ea86c2ff614384710c6e1505bddc2c991) Thanks [@Vahor](https://github.com/Vahor)! - fix match href only in `<a>` tag
+
 ## 0.1.0
 
 ### Minor Changes
