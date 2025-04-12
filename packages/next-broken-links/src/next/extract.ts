@@ -5,7 +5,7 @@ import type { Options } from "..";
 import { debug } from "../logger";
 import type { ExtendedNextConfig } from "./parse-next-config";
 
-const HREF_REGEX = /href="([^"]+)"/g;
+const LINK_REGEX = /<a[^>]+href="([^"]+)"/g;
 
 interface Link {
 	type: "link";
@@ -47,7 +47,7 @@ const isInternalLink = (
 export const extractFromHtml = (html: string, domain?: string): Link[] => {
 	const links = new Map<string, Link>();
 	while (true) {
-		const match = HREF_REGEX.exec(html);
+		const match = LINK_REGEX.exec(html);
 		if (!match) {
 			break;
 		}
