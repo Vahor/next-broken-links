@@ -3,14 +3,9 @@ import ora from "ora";
 
 export const value = (value: string) => chalk.blue(value);
 
-export const warning = chalk.yellow("⚠ warning");
 export const error = chalk.red("✖ error");
 export const success = chalk.green("✔");
 export const toolName = value("@vahor/next-broken-links");
-
-export const log = (message: string) => {
-	console.log(`${message}`);
-};
 
 export const debug = (message: string) => {
 	if (process.env.DEBUG) {

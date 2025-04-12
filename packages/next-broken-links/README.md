@@ -6,7 +6,7 @@
 
 ## About
 
-This is a CLI tool that will check broken links in your Next.js project.\
+This is a CLI tool that will check broken links in your Next.js project.
 
 The experimental nextjs [Statically Typed Links](https://nextjs.org/docs/app/api-reference/config/typescript#statically-typed-links) feature is not enough for catch all segments. This tool helps in that case.
 

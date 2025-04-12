@@ -18,7 +18,6 @@ process.env.DEBUG = options.verbose ? "1" : "";
 export type Options = typeof options;
 
 const main = async () => {
-	// const config = await parseNextConfig(options.config);
 	const config = (
 		await withProgress([parseNextConfig(options.config)], {
 			title: "Parsing next config",
