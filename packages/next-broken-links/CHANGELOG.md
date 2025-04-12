@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.0.7
+
+### Patch Changes
+
+- [#14](https://github.com/Vahor/next-broken-links/pull/14) [`52e8195`](https://github.com/Vahor/next-broken-links/commit/52e819568941564e7d928a0828d638da5cc502b7) Thanks [@Vahor](https://github.com/Vahor)! - validate sitemaps
+
 ## 0.0.6
 
 ### Patch Changes
