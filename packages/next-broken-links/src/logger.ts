@@ -42,6 +42,9 @@ export const withProgress = async <T>(
 	} catch (e) {
 		spinner.fail(fail);
 		console.log(`${error} ${(e as Error).message}`);
+		if (process.env.DEBUG) {
+			throw e;
+		}
 		process.exit(1);
 	}
 };
