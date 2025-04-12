@@ -48,6 +48,7 @@ If you have broken links, it will output the following:
 ## Roadmap
 
 - [ ] Add support for other output formats (currently only supports `export`)
+- [ ] Check broken links for images
 - [ ] Cleaner output
         - [ ] Print the tsx file that contains the broken link instead of the html file
         - [ ] Group links by file

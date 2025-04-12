@@ -16,10 +16,9 @@ export const crawlNextOutput = (config: ExtendedNextConfig) => {
 };
 
 const HREF_REGEX = /href="([^"]+)"/g;
-const IMAGE_REGEX = /<img\s+(?:[^>]*?\s+)?src="([^"]+)"/g;
 
 interface Link {
-	type: "link" | "image";
+	type: "link";
 	value: string;
 }
 
@@ -38,15 +37,6 @@ export const extractLinks = async (
 		const link = match[1];
 		if (!isInternalLink(link)) continue;
 		links.set(link, { type: "link", value: link });
-	}
-	while (true) {
-		const match = IMAGE_REGEX.exec(html);
-		if (!match) {
-			break;
-		}
-		const link = match[1];
-		if (!isInternalLink(link)) continue;
-		links.set(link, { type: "image", value: link });
 	}
 	return { file: filePath, links: Array.from(links.values()) };
 };
