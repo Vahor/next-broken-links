@@ -1,11 +1,12 @@
 import chalk from "chalk";
 import ora from "ora";
+import { name } from "../package.json" assert { type: "json" };
 
 export const value = (value: string) => chalk.blue(value);
 
 export const error = chalk.red("✖ error");
 export const success = chalk.green("✔");
-export const toolName = value("@vahor/next-broken-links");
+export const toolName = value(name);
 
 export const debug = (message: string) => {
 	if (process.env.DEBUG) {
