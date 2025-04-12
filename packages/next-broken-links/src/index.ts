@@ -26,6 +26,10 @@ const main = async () => {
 			success: "Parsed next config",
 		})
 	)[0];
+	if (!config) {
+		console.log(`${error} Failed to parse next config`);
+		process.exit(1);
+	}
 	const htmlPages = crawlNextOutput(config);
 
 	const allLinks = await withProgress(
