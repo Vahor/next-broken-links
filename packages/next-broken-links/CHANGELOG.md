@@ -1,5 +1,13 @@
 # @vahor/next-broken-links
 
+## 0.1.2
+
+### Patch Changes
+
+- [#23](https://github.com/Vahor/next-broken-links/pull/23) [`74966b7`](https://github.com/Vahor/next-broken-links/commit/74966b734d6ec3d0a75597823e523b9d904a718f) Thanks [@Vahor](https://github.com/Vahor)! - crawl assets
+
+- [#21](https://github.com/Vahor/next-broken-links/pull/21) [`304bec9`](https://github.com/Vahor/next-broken-links/commit/304bec99c6761a3278411f58b21a2d338130afbd) Thanks [@Vahor](https://github.com/Vahor)! - match page.js files
+
 ## 0.1.1
 
 ### Patch Changes
