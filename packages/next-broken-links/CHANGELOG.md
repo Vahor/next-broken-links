@@ -1,5 +1,13 @@
 # @vahor/next-broken-links
 
+## 0.0.6
+
+### Patch Changes
+
+- [`cd048b0`](https://github.com/Vahor/next-broken-links/commit/cd048b089ea2436e0ff89ce0eaa5193985f32e89) Thanks [@Vahor](https://github.com/Vahor)! - only import name and version from package.json
+
+- [`6305552`](https://github.com/Vahor/next-broken-links/commit/630555252894600ffeafa87769e94b0197601d2c) Thanks [@Vahor](https://github.com/Vahor)! - add chalk dependency
+
 ## 0.0.5
 
 ### Patch Changes
