@@ -1,3 +1,4 @@
+import { statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
 import type { NextConfig } from "next";
@@ -9,17 +10,45 @@ export interface ExtendedNextConfig extends NextConfig {
 	};
 }
 
-export default function parseNextConfig(path: string) {
-	const pattern = /next\.config\.[cm]?js|ts$/;
-	if (!pattern.test(path)) {
-		// ts only works with bun
-		console.log(
-			`${error} Invalid next config path: '${path}'. Expected a path ending with ${value("'next.config.js'")} file (mjs, cjs, ts or js).`,
-		);
-		process.exit(1);
+const validExtensions = ["js", "mjs", "cjs", "ts"];
+
+const getDefaultConfigPath = (cwd: string) => {
+	for (const ext of validExtensions) {
+		const filePath = join(cwd, `next.config.${ext}`);
+		if (statSync(filePath).isFile()) {
+			return filePath;
+		}
+	}
+};
+
+export default function parseNextConfig(
+	path: string | undefined,
+): ExtendedNextConfig {
+	let finalPath: string | undefined = undefined;
+	if (!path) {
+		finalPath = getDefaultConfigPath(process.cwd());
+		if (!finalPath) {
+			console.log(
+				`${error} Could not find a next config file in ${value(
+					process.cwd(),
+				)}. Please specify a path using the ${value("--config")} option.`,
+			);
+			process.exit(1);
+		}
+	} else {
+		finalPath = path;
+
+		const pattern = /next\.config\.[cm]?js|ts$/;
+		if (!pattern.test(finalPath)) {
+			// ts only works with bun
+			console.log(
+				`${error} Invalid next config path: '${finalPath}'. Expected a path ending with ${value("'next.config.js'")} file (mjs, cjs, ts or js).`,
+			);
+			process.exit(1);
+		}
 	}
 
-	const cleanPath = join(process.cwd(), path);
+	const cleanPath = join(process.cwd(), finalPath);
 	debug(`cwd: ${value(process.cwd())}`);
 	try {
 		debug(`Reading next config file from ${value(cleanPath)} `);

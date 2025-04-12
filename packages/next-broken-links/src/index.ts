@@ -8,7 +8,7 @@ const program = new Command()
 	.name(packageJson.name)
 	.version(packageJson.version)
 	.description("Find broken links in your Next.js project.")
-	.option("-c, --config <path>", "next.config.js path", "./next.config.js")
+	.option("-c, --config <path>", "next.config.js path")
 	.option("-v, --verbose", "Enable verbose mode");
 
 program.parse();
