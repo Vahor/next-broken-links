@@ -43,3 +43,11 @@ If you have broken links, it will output the following:
 ✖ error Found 1 broken links
         /path/to/page.html: broken-link
 ```
+
+### Options
+
+- `--config <path>` - Path to your next.config.js file. 
+        - If not set, it will try to find a `next.config.js` (mjs, cjs, ts or js) file in the current directory.
+- `--domain <domain>` - Domain to check links against. 
+        - If not set, non relative links will be ignored.
+- `--verbose` - Enable verbose mode.
