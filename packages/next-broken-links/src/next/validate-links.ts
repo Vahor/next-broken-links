@@ -21,6 +21,7 @@ export const checkValidLinks = async (files: Links[]) => {
 			//
 			if (
 				!allFiles.includes(relativePath) &&
+				!allFiles.includes(`${relativePath}page.js`) &&
 				!allFiles.includes(`${relativePath}.html`) &&
 				!allFiles.includes(`${relativePath}index.html`)
 			) {
