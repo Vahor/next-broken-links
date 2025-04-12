@@ -1,14 +1,17 @@
 import { Command } from "@commander-js/extra-typings";
 import { name, version } from "../package.json" assert { type: "json" };
 import { debug, error, success, withProgress } from "./logger";
-import { checkValidLinks, crawlNextOutput, extractLinks } from "./next/crawler";
+import { crawlNextOutput } from "./next/crawler";
+import { extractLinks } from "./next/extract";
 import parseNextConfig from "./next/parse-next-config";
+import { checkValidLinks } from "./next/validate-links";
 
 const program = new Command()
 	.name(name)
 	.version(version)
 	.description("Find broken links in your Next.js project.")
 	.option("-c, --config <path>", "next.config.js path")
+	.option("--domain <domain>", "Domain to check links against")
 	.option("-v, --verbose", "Enable verbose mode");
 
 program.parse();
@@ -32,7 +35,7 @@ const main = async () => {
 	const htmlPages = crawlNextOutput(config);
 
 	const allLinks = await withProgress(
-		htmlPages.map((file) => extractLinks(file, config)),
+		htmlPages.map((file) => extractLinks(file, config, options)),
 		{
 			title: "Extracting links",
 			progress: (completed) =>

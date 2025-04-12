@@ -5,19 +5,19 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
 	return [
 		{
-			url: "https://acme.com",
+			url: "https://vahor.fr",
 			lastModified: new Date(),
 			changeFrequency: "yearly",
 			priority: 1,
 		},
 		{
-			url: "https://acme.com/hello/world",
+			url: "https://vahor.fr/hello/world",
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 0.8,
 		},
 		{
-			url: "https://acme.com/this/should/fail",
+			url: "https://vahor.fr/this/should/fail",
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 0.5,
