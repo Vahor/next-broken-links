@@ -1,5 +1,13 @@
 # @vahor/next-broken-links
 
+## 0.0.5
+
+### Patch Changes
+
+- [#6](https://github.com/Vahor/next-broken-links/pull/6) [`802a475`](https://github.com/Vahor/next-broken-links/commit/802a47508600eee4790cf87fc44e93d867e276eb) Thanks [@Vahor](https://github.com/Vahor)! - try to open js, mjs, cjs or ts if config path not specified
+
+- [#6](https://github.com/Vahor/next-broken-links/pull/6) [`802a475`](https://github.com/Vahor/next-broken-links/commit/802a47508600eee4790cf87fc44e93d867e276eb) Thanks [@Vahor](https://github.com/Vahor)! - replace require with import
+
 ## 0.0.4
 
 ### Patch Changes
