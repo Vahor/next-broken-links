@@ -15,17 +15,11 @@
 		"@vahor/next-broken-links": "./dist/index.js"
 	},
 	"private": false,
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"author": {
 		"email": "me@vahor.fr"
 	},
-	"keywords": [
-		"next",
-		"cli",
-		"linter"
-	],
+	"keywords": ["next", "cli", "linter"],
 	"peerDependencies": {
 		"typescript": "^5"
 	},
