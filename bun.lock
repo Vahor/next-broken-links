@@ -28,18 +28,19 @@
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
-        "@vahor/next-broken-links": "workspace:*",
         "typescript": "^5",
       },
     },
     "packages/next-broken-links": {
       "name": "@vahor/next-broken-links",
-      "version": "0.0.0",
+      "version": "0.0.5",
       "bin": {
         "@vahor/next-broken-links": "./dist/index.js",
       },
       "dependencies": {
         "@commander-js/extra-typings": "^13.1.0",
+        "chalk": "^5.4.1",
+        "commander": "^13.1.0",
         "ora": "^8.2.0",
         "tinyglobby": "^0.2.12",
       },
