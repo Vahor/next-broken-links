@@ -43,3 +43,11 @@ If you have broken links, it will output the following:
 ✖ error Found 1 broken links
         /path/to/page.html: broken-link
 ```
+
+
+## Roadmap
+
+- [ ] Add support for other output formats (currently only supports `export`)
+- [ ] Cleaner output
+        - [ ] Print the tsx file that contains the broken link instead of the html file
+        - [ ] Group links by file
