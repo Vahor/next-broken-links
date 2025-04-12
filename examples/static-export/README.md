@@ -1,6 +1,6 @@
 # Static Export
 
-This example shows how to use `next-broken-links` with `next export`.
+This example shows how to use `next-broken-links` with `output: "export"`.
 
 ## Running the example
 
