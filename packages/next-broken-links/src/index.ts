@@ -18,7 +18,14 @@ process.env.DEBUG = options.verbose ? "1" : "";
 export type Options = typeof options;
 
 const main = async () => {
-	const config = parseNextConfig(options.config);
+	// const config = await parseNextConfig(options.config);
+	const config = (
+		await withProgress([parseNextConfig(options.config)], {
+			title: "Parsing next config",
+			progress: (completed) => `Parsing next config: ${completed}/${1}`,
+			success: "Parsed next config",
+		})
+	)[0];
 	const htmlPages = crawlNextOutput(config);
 
 	const allLinks = await withProgress(
@@ -38,6 +45,7 @@ const main = async () => {
 			title: "Checking links",
 			progress: (completed) =>
 				`Checking links: ${completed}/${allLinks.length}`,
+			success: "Checked links",
 		})
 	)[0];
 

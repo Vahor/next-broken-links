@@ -1,8 +1,7 @@
 import { statSync } from "node:fs";
 import { dirname, join } from "node:path";
-import chalk from "chalk";
 import type { NextConfig } from "next";
-import { debug, error, toolName, value } from "../logger";
+import { debug, toolName, value } from "../logger";
 
 export interface ExtendedNextConfig extends NextConfig {
 	_vahor: {
@@ -14,10 +13,11 @@ const validExtensions = ["js", "mjs", "cjs", "ts"];
 
 const getDefaultConfigPath = (cwd: string) => {
 	for (const ext of validExtensions) {
-		const filePath = join(cwd, `next.config.${ext}`);
+		const fileName = `next.config.${ext}`;
+		const filePath = join(cwd, fileName);
 		try {
 			if (statSync(filePath).isFile()) {
-				return filePath;
+				return fileName;
 			}
 		} catch (e) {
 			// ignore
@@ -32,12 +32,11 @@ export default async function parseNextConfig(
 	if (!path) {
 		finalPath = getDefaultConfigPath(process.cwd());
 		if (!finalPath) {
-			console.log(
-				`${error} Could not find a next config file in ${value(
+			throw new Error(
+				`Could not find a next config file in ${value(
 					process.cwd(),
 				)}. Please specify a path using the ${value("--config")} option.`,
 			);
-			process.exit(1);
 		}
 	} else {
 		finalPath = path;
@@ -45,47 +44,37 @@ export default async function parseNextConfig(
 		const pattern = /next\.config\.[cm]?js|ts$/;
 		if (!pattern.test(finalPath)) {
 			// ts only works with bun
-			console.log(
-				`${error} Invalid next config path: '${finalPath}'. Expected a path ending with ${value("'next.config.js'")} file (mjs, cjs, ts or js).`,
+			throw new Error(
+				`Invalid next config path: '${finalPath}'. Expected a path ending with ${value("'next.config.js'")} file (mjs, cjs, ts or js).`,
 			);
-			process.exit(1);
 		}
 	}
 
 	const cleanPath = join(process.cwd(), finalPath);
 	debug(`cwd: ${value(process.cwd())}`);
-	try {
-		debug(`Reading next config file from ${value(cleanPath)} `);
-		const config = (await import(cleanPath).then(
-			(mod) => mod.default,
-		)) as NextConfig;
-		debug("Parsed next config file");
-		debug(JSON.stringify(config, null, 2));
-		checkSupportedConfiguration(config);
+	debug(`Reading next config file from ${value(cleanPath)} `);
+	const config = (await import(cleanPath).then(
+		(mod) => mod.default,
+	)) as NextConfig;
+	debug("Parsed next config file");
+	debug(JSON.stringify(config, null, 2));
+	checkSupportedConfiguration(config);
 
-		const outputDir = config.distDir || "out";
-		const cwd = join(dirname(cleanPath), outputDir);
-		return {
-			...config,
-			_vahor: {
-				cwd,
-			},
-		};
-	} catch (e) {
-		console.log(
-			`${error} Failed to read next config file: ${value(`'${cleanPath}'`)} `,
-		);
-		console.log(`\t${chalk.red((e as Error).message)} `);
-		process.exit(1);
-	}
+	const outputDir = config.distDir || "out";
+	const cwd = join(dirname(cleanPath), outputDir);
+	return {
+		...config,
+		_vahor: {
+			cwd,
+		},
+	};
 }
 
 const checkSupportedConfiguration = (config: NextConfig) => {
 	if (config.output !== "export") {
-		console.log(
-			`${error} ${toolName} only supports ${value("'export'")} output mode.`,
+		throw new Error(
+			`${toolName} only supports ${value("'export'")} output mode.`,
 		);
-		process.exit(1);
 	}
 	return true;
 };
