@@ -56,3 +56,9 @@ If you have broken links, it will output the following:
 - `--domain <domain>` - Domain to check links against. 
   - If not set, non relative links will be ignored.
 - `--verbose` - Enable verbose mode.
+
+# Who is using this?
+
+- [vahor.fr](https://vahor.fr/project/next-broken-links) [(source)](https://github.com/Vahor/vahor.fr/blob/main/package.json)
+
+
