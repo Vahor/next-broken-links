@@ -13,16 +13,16 @@ export const checkValidLinks = async (files: Links[]) => {
 		const links = file.links;
 		for (const link of links) {
 			// TODO: clean this part
-			let withoutDomain = link.value.replace(/^https?:\/\//, "");
-			if (!withoutDomain.startsWith("/")) {
-				withoutDomain = withoutDomain.split("/").slice(1).join("/");
-				withoutDomain = `/${withoutDomain}`;
+			let relativePath = link.value.replace(/^https?:\/\//, "");
+			if (!relativePath.startsWith("/")) {
+				relativePath = relativePath.split("/").slice(1).join("/");
+				relativePath = `/${relativePath}`;
 			}
 			//
 			if (
-				!allFiles.includes(withoutDomain) &&
-				!allFiles.includes(`${withoutDomain}.html`) &&
-				!allFiles.includes(`${withoutDomain}index.html`)
+				!allFiles.includes(relativePath) &&
+				!allFiles.includes(`${relativePath}.html`) &&
+				!allFiles.includes(`${relativePath}index.html`)
 			) {
 				result.push({
 					file: file.file,
