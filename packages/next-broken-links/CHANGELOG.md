@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.1.0
+
+### Minor Changes
+
+- [#17](https://github.com/Vahor/next-broken-links/pull/17) [`e585cf0`](https://github.com/Vahor/next-broken-links/commit/e585cf0690f791c0f79b6704fa6a2a277519792c) Thanks [@Vahor](https://github.com/Vahor)! - add support for .next output folder (app dir)
+
 ## 0.0.7
 
 ### Patch Changes
