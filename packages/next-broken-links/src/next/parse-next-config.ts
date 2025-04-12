@@ -45,7 +45,7 @@ export default async function parseNextConfig(
 		if (!pattern.test(finalPath)) {
 			// ts only works with bun
 			throw new Error(
-				`Invalid next config path: ${value(finalPath)}'. Expected a path ending with ${value("next.config.js")} file (mjs, cjs, ts or js).`,
+				`Invalid next config path: ${value(finalPath)}. Expected a path ending with ${value("next.config.js")} file (mjs, cjs, ts or js).`,
 			);
 		}
 	}
