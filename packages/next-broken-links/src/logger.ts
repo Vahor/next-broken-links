@@ -22,25 +22,31 @@ interface ProgressOptions {
 	title: string;
 	progress: (completed: number) => string;
 	success?: string;
+	fail?: string;
 }
 
 export const withProgress = async <T>(
 	promises: Promise<T>[],
-	{ title, progress, success }: ProgressOptions,
+	{ title, progress, success, fail }: ProgressOptions,
 ): Promise<T[]> => {
 	const spinner = ora(title).start();
 	let completed = 0;
-	const tracked = promises.map(async (promise) => {
-		const r = await promise;
-		completed++;
-		spinner.text = progress(completed);
-		return r;
-	});
-	const results = await Promise.all(tracked);
-	if (success) {
-		spinner.succeed(success);
-	} else {
-		spinner.stop();
+	for (const promise of promises) {
+		promise.then(() => {
+			completed++;
+			spinner.text = progress(completed);
+		});
 	}
-	return results;
+	try {
+		const results = await Promise.all(promises);
+		if (success) {
+			spinner.succeed(success);
+		} else {
+			spinner.stop();
+		}
+		return results;
+	} catch (e) {
+		spinner.fail(fail);
+		throw e;
+	}
 };

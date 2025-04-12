@@ -8,7 +8,7 @@ const program = new Command()
 	.name(packageJson.name)
 	.version(packageJson.version)
 	.description("Find broken links in your Next.js project.")
-	.option("-c, --config <path>", "next.config.js path", "./next.config.js")
+	.option("-c, --config <path>", "next.config.js path")
 	.option("-v, --verbose", "Enable verbose mode");
 
 program.parse();
@@ -18,7 +18,18 @@ process.env.DEBUG = options.verbose ? "1" : "";
 export type Options = typeof options;
 
 const main = async () => {
-	const config = parseNextConfig(options.config);
+	// const config = await parseNextConfig(options.config);
+	const config = (
+		await withProgress([parseNextConfig(options.config)], {
+			title: "Parsing next config",
+			progress: (completed) => `Parsing next config: ${completed}/${1}`,
+			success: "Parsed next config",
+		})
+	)[0];
+	if (!config) {
+		console.log(`${error} Failed to parse next config`);
+		process.exit(1);
+	}
 	const htmlPages = crawlNextOutput(config);
 
 	const allLinks = await withProgress(
@@ -38,6 +49,7 @@ const main = async () => {
 			title: "Checking links",
 			progress: (completed) =>
 				`Checking links: ${completed}/${allLinks.length}`,
+			success: "Checked links",
 		})
 	)[0];
 
