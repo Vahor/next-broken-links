@@ -21,9 +21,9 @@ const getDefaultConfigPath = (cwd: string) => {
 	}
 };
 
-export default function parseNextConfig(
+export default async function parseNextConfig(
 	path: string | undefined,
-): ExtendedNextConfig {
+): Promise<ExtendedNextConfig> {
 	let finalPath: string | undefined = undefined;
 	if (!path) {
 		finalPath = getDefaultConfigPath(process.cwd());
@@ -52,7 +52,9 @@ export default function parseNextConfig(
 	debug(`cwd: ${value(process.cwd())}`);
 	try {
 		debug(`Reading next config file from ${value(cleanPath)} `);
-		const config = require(cleanPath).default as NextConfig;
+		const config = (await import(cleanPath).then(
+			(mod) => mod.default,
+		)) as NextConfig;
 		debug("Parsed next config file");
 		debug(JSON.stringify(config, null, 2));
 		checkSupportedConfiguration(config);
