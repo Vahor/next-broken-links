@@ -4,7 +4,13 @@ import type { ExtendedNextConfig } from "./parse-next-config";
 
 export const crawlNextOutput = (config: ExtendedNextConfig) => {
 	const files = globSync(
-		["**/*.html", "**/sitemap.xml", "**/sitemap/*.xml", "**/sitemap.xml.body"],
+		[
+			"**/*.html",
+			"**/sitemap.xml",
+			"**/sitemap/*.xml",
+			"**/sitemap.xml.body",
+			"**/page.js",
+		],
 		{
 			cwd: config._vahor.cwd,
 			onlyFiles: true,
@@ -14,6 +20,5 @@ export const crawlNextOutput = (config: ExtendedNextConfig) => {
 	debug(
 		`Found ${files.length} files in ${config._vahor.cwd}: [${files.join(", ")}]`,
 	);
-
 	return files;
 };
