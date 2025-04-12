@@ -15,8 +15,12 @@ const validExtensions = ["js", "mjs", "cjs", "ts"];
 const getDefaultConfigPath = (cwd: string) => {
 	for (const ext of validExtensions) {
 		const filePath = join(cwd, `next.config.${ext}`);
-		if (statSync(filePath).isFile()) {
-			return filePath;
+		try {
+			if (statSync(filePath).isFile()) {
+				return filePath;
+			}
+		} catch (e) {
+			// ignore
 		}
 	}
 };
