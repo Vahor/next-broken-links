@@ -43,6 +43,7 @@ export const withProgress = async <T>(
 		return results;
 	} catch (e) {
 		spinner.fail(fail);
-		throw e;
+		console.log(`${error} ${e}`);
+		process.exit(1);
 	}
 };
