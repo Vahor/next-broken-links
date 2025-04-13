@@ -1,6 +1,6 @@
 {
 	"name": "@vahor/next-broken-links",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "A tool to find broken links in your Next.js project",
 	"license": "MIT",
 	"repository": {
@@ -15,11 +15,17 @@
 		"@vahor/next-broken-links": "./dist/index.js"
 	},
 	"private": false,
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"author": {
 		"email": "me@vahor.fr"
 	},
-	"keywords": ["next", "cli", "linter"],
+	"keywords": [
+		"next",
+		"cli",
+		"linter"
+	],
 	"peerDependencies": {
 		"typescript": "^5"
 	},

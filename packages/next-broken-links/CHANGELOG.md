@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.1.3
+
+### Patch Changes
+
+- [#27](https://github.com/Vahor/next-broken-links/pull/27) [`0b31f11`](https://github.com/Vahor/next-broken-links/commit/0b31f111042a2a1912fa2f2d02947a4a6c348b29) Thanks [@Vahor](https://github.com/Vahor)! - ignore query params
+
 ## 0.1.2
 
 ### Patch Changes
