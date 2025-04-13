@@ -10,6 +10,9 @@ This is a CLI tool that will check broken links in your Next.js project.
 
 The experimental nextjs [Statically Typed Links](https://nextjs.org/docs/app/api-reference/config/typescript#statically-typed-links) feature is not enough for catch all segments. This tool helps in that case.
 
+Plus as we check links directly in the `.next` (or `out`) directory, we also check for broken links coming from CMS or other external sources. Whereas the next features is only limited to the `<Link>` tags present directly in the code.\
+But that's also a limit of our tool as we can only check server side rendered links.
+
 ### Features
 
 - Check broken links for public assets (images, json etc...)
