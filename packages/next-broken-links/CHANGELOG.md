@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.1.4
+
+### Patch Changes
+
+- [#32](https://github.com/Vahor/next-broken-links/pull/32) [`7dbf946`](https://github.com/Vahor/next-broken-links/commit/7dbf9463ba4a062e6598662362c1f88069be99f6) Thanks [@Vahor](https://github.com/Vahor)! - fix: handle sitemap.xml.body as sitemap.xml during validation
+
 ## 0.1.3
 
 ### Patch Changes
