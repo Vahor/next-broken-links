@@ -10,10 +10,17 @@ export default function Home() {
 			</Link>
 			<Link href="/something.json">Something.json is correct</Link>
 			<Link href="/incorrect.json">This one is incorrect</Link>
-			<Link href="/hello/world/again">This is a broken link</Link>
 			<Link href="/hello/world/again">This is a broken link</Link>P
+			<Link href="/hello/world">This is a correct link</Link>
+			<Link href="/hello/world?a=b">
+				This is a correct link with query params
+			</Link>
+			<Link href="/hello/world/again">This is a broken link</Link>
 			<Link href="https://vahor.fr/this/also/fails">This is a broken link</Link>
 			<Link href="https://vahor.fr/hello/world">But here it works</Link>
+			<Link href="https://vahor.fr/hello/world?b=c">
+				Query params are ignored
+			</Link>
 			<Link href="https://vahor.fr/something.json">
 				Assets also works with absolute paths
 			</Link>

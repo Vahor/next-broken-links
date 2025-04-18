@@ -19,6 +19,14 @@ export const checkValidLinks = async (files: Links[]) => {
 				relativePath = `/${relativePath}`;
 			}
 			//
+			// remove query params
+			// biome-ignore lint/style/noNonNullAssertion: <explanation>
+			relativePath = relativePath.split("?")[0]!;
+
+			// remove hash
+			// biome-ignore lint/style/noNonNullAssertion: <explanation>
+			relativePath = relativePath.split("#")[0]!;
+
 			if (
 				!allFiles.includes(relativePath) &&
 				!allFiles.includes(`${relativePath}page.js`) &&
