@@ -9,6 +9,13 @@ interface BrokenLink {
 export const checkValidLinks = async (files: Links[]) => {
 	const result: BrokenLink[] = [];
 	const allFiles = files.flatMap((file) => `/${file.file}`);
+	// TODO: clean this part, and handle nested sitemaps
+	if (
+		allFiles.includes("/sitemap.xml.body") &&
+		!allFiles.includes("/sitemap.xml")
+	) {
+		allFiles.push("/sitemap.xml");
+	}
 	for (const file of files) {
 		const links = file.links;
 		for (const link of links) {
