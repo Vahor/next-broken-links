@@ -47,6 +47,7 @@ jobs:
           output=$(bun run ../../packages/next-broken-links/dist/index.js --domain vahor.fr || true)
           echo "$output"
           actual_count=$(echo "$output" | grep -o "Found [0-9]* broken links" | grep -o "[0-9]*")
+          actual_count=${actual_count:-0}
           echo "(debug) Found $actual_count broken links"
           if [ "$actual_count" -ne "$EXPECTED_COUNT" ]; then
             echo "(debug) Expected $EXPECTED_COUNT broken links"
