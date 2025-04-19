@@ -9,49 +9,47 @@ concurrency:
 
 env:
   NEXT_TELEMETRY_DISABLED: 1
+  EXPECTED_COUNT: 5
 
 jobs:
-  default-export:
+  output:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        OUTPUT_MODE: ["export", "undefined"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: oven-sh/setup-bun@v2
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
-      - name: Build
-        run: bun run build
-        working-directory: packages/next-broken-links
-      - name: Replace export option
-        run: sed -i 's/"export"/undefined/' next.config.ts && cat next.config.ts
-        working-directory: examples/static-export
-      - name: Build example
-        run: bun run build
-        working-directory: examples/static-export
-      - name: Check links
-        # expect to fail
-        run: (bun run ../../packages/next-broken-links/dist/index.js --domain vahor.fr && exit 1) || exit 0
-        working-directory: examples/static-export
 
-  static-export:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: oven-sh/setup-bun@v2
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
+
       - name: Build
-        run: bun run build
         working-directory: packages/next-broken-links
-      - name: Build example
         run: bun run build
+
+      - name: Replace export option
         working-directory: examples/static-export
+        if: matrix.OUTPUT_MODE == 'undefined'
+        run: sed -i 's/"export"/undefined/' next.config.ts && cat next.config.ts
+
+      - name: Build example
+        working-directory: examples/static-export
+        run: bun run build
+
       - name: Check links
-        # expect to fail
-        run: (bun run ../../packages/next-broken-links/dist/index.js --domain vahor.fr && exit 1) || exit 0
         working-directory: examples/static-export
+        run: |
+          output=$(bun run ../../packages/next-broken-links/dist/index.js --domain vahor.fr || true)
+          echo "$output"
+          actual_count=$(echo "$output" | grep -o "Found [0-9]* broken links" | grep -o "[0-9]*")
+          echo "(debug) Found $actual_count broken links"
+          if [ "$actual_count" -ne "$EXPECTED_COUNT" ]; then
+            echo "(debug) Expected $EXPECTED_COUNT broken links"
+            exit 1
+          fi
+
