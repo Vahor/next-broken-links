@@ -38,6 +38,9 @@ describe("extract", () => {
 		const html = '<img src="https://example.com/image.jpg" alt="External" />';
 		const links = extractFromHtml(html, "example.com");
 		expect(links).toHaveLength(1);
-		expect(links[0]).toEqual({ type: "image", value: "https://example.com/image.jpg" });
+		expect(links[0]).toEqual({
+			type: "image",
+			value: "https://example.com/image.jpg",
+		});
 	});
 });
