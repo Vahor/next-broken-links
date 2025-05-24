@@ -59,9 +59,6 @@ export const extractFromHtml = (html: string, domain?: string): Link[] => {
 		links.set(link, { type: "link", value: link });
 	}
 
-	// Reset regex state for image extraction
-	IMG_REGEX.lastIndex = 0;
-
 	// Extract URLs from <img> tags
 	while (true) {
 		const match = IMG_REGEX.exec(html);
