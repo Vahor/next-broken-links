@@ -4,7 +4,7 @@ import { name, version } from "../package.json" assert { type: "json" };
 import { debug, error, success, withProgress } from "./logger";
 import { crawlNextOutput, crawlPublicAssets } from "./next/crawler";
 import { extractLinks } from "./next/extract";
-import parseNextConfig, { type ExtendedNextConfig } from "./next/parse-next-config";
+import parseNextConfig, { createFallbackConfig, type ExtendedNextConfig } from "./next/parse-next-config";
 import { checkValidLinks } from "./next/validate-links";
 
 const program = new Command()
@@ -23,32 +23,6 @@ program.parse();
 const options = program.opts();
 process.env.DEBUG = options.verbose ? "1" : "";
 export type Options = typeof options;
-
-const createFallbackConfig = (options: Options): ExtendedNextConfig => {
-	const cwd = process.cwd();
-	const output = options.output === "export" ? "export" : undefined;
-	let outputDir: string;
-	
-	if (options.distDir) {
-		outputDir = join(cwd, options.distDir);
-		if (output !== "export") {
-			outputDir = join(outputDir, "server", "app");
-		}
-	} else if (output === "export") {
-		outputDir = join(cwd, "out");
-	} else {
-		outputDir = join(cwd, ".next", "server", "app");
-	}
-
-	return {
-		output,
-		distDir: options.distDir || (output === "export" ? "out" : ".next"),
-		_vahor: {
-			outputDir,
-			root: cwd,
-		},
-	};
-};
 
 const main = async () => {
 	let config: ExtendedNextConfig;

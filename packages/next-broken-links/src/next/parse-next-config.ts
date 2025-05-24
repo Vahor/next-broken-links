@@ -3,6 +3,15 @@ import { dirname, join } from "node:path";
 import type { NextConfig } from "next";
 import { debug, value } from "../logger";
 
+export interface Options {
+	config?: string;
+	domain?: string;
+	verbose?: boolean;
+	output?: string;
+	distDir?: string;
+	noConfig?: boolean;
+}
+
 export interface ExtendedNextConfig extends NextConfig {
 	_vahor: {
 		outputDir: string;
@@ -89,4 +98,30 @@ const checkSupportedConfiguration = (config: NextConfig) => {
 		);
 	}
 	return true;
+};
+
+export const createFallbackConfig = (options: Options): ExtendedNextConfig => {
+	const cwd = process.cwd();
+	const output = options.output === "export" ? "export" : undefined;
+	let outputDir: string;
+	
+	if (options.distDir) {
+		outputDir = join(cwd, options.distDir);
+		if (output !== "export") {
+			outputDir = join(outputDir, "server", "app");
+		}
+	} else if (output === "export") {
+		outputDir = join(cwd, "out");
+	} else {
+		outputDir = join(cwd, ".next", "server", "app");
+	}
+
+	return {
+		output,
+		distDir: options.distDir || (output === "export" ? "out" : ".next"),
+		_vahor: {
+			outputDir,
+			root: cwd,
+		},
+	};
 };

@@ -1,9 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { XMLParser } from "fast-xml-parser";
-import type { Options } from "..";
 import { debug } from "../logger";
-import type { ExtendedNextConfig } from "./parse-next-config";
+import type { ExtendedNextConfig, Options } from "./parse-next-config";
 
 const LINK_REGEX = /<a[^>]+href="([^"]+)"/g;
 
