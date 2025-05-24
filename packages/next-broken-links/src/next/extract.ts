@@ -8,7 +8,7 @@ import type { ExtendedNextConfig } from "./parse-next-config";
 const LINK_REGEX = /<a[^>]+href="([^"]+)"/g;
 
 interface Link {
-	type: "link";
+	type: "link" | "image";
 	value: string;
 }
 

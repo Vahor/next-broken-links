@@ -4,7 +4,7 @@ import { debug, error, success, withProgress } from "./logger";
 import { crawlNextOutput, crawlPublicAssets } from "./next/crawler";
 import { extractLinks } from "./next/extract";
 import parseNextConfig from "./next/parse-next-config";
-import { checkValidLinks } from "./next/validate-links";
+import { checkValidLinks, printBrokenLinksTable } from "./next/validate-links";
 
 const program = new Command()
 	.name(name)
@@ -68,9 +68,7 @@ const main = async () => {
 
 	if (result.length) {
 		console.log(`${error} Found ${result.length} broken links`);
-		for (const link of result) {
-			console.log(`\t${link.file}: ${link.link}`);
-		}
+		printBrokenLinksTable(result, config);
 		process.exit(1);
 	} else {
 		console.log(`${success} No broken links found`);
