@@ -38,7 +38,7 @@
         "@vahor/next-broken-links": "./dist/index.js",
       },
       "dependencies": {
-        "@commander-js/extra-typings": "^13.1.0",
+        "@commander-js/extra-typings": "^14.0.0",
         "chalk": "^5.4.1",
         "commander": "^14.0.0",
         "fast-xml-parser": "^5.2.3",
@@ -78,7 +78,7 @@
 
     "@changesets/types": ["@changesets/types@6.1.0", "", {}, "sha512-rKQcJ+o1nKNgeoYRHKOS07tAMNd3YSN0uHaJOZYjBAgxfV7TUE7JE+z4BzZdQwb5hKaYbayKN5KrYV7ODb2rAA=="],
 
-    "@commander-js/extra-typings": ["@commander-js/extra-typings@13.1.0", "", { "peerDependencies": { "commander": "~13.1.0" } }, "sha512-q5P52BYb1hwVWE6dtID7VvuJWrlfbCv4klj7BjUUOqMz4jbSZD4C9fJ9lRjL2jnBGTg+gDDlaXN51rkWcLk4fg=="],
+    "@commander-js/extra-typings": ["@commander-js/extra-typings@14.0.0", "", { "peerDependencies": { "commander": "~14.0.0" } }, "sha512-hIn0ncNaJRLkZrxBIp5AsW/eXEHNKYQBh0aPdoUqNgD+Io3NIykQqpKFyKcuasZhicGaEZJX/JBSIkZ4e5x8Dg=="],
 
     "@emnapi/runtime": ["@emnapi/runtime@1.4.0", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-64WYIf4UYcdLnbKn/umDlNjQDSS8AgZrI/R9+x5ilkUVFxXcA1Ebl+gQLc/6mERA4407Xof0R7wEyEuj091CVw=="],
 
