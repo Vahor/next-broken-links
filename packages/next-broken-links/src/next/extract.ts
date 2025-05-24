@@ -6,9 +6,10 @@ import { debug } from "../logger";
 import type { ExtendedNextConfig } from "./parse-next-config";
 
 const LINK_REGEX = /<a[^>]+href="([^"]+)"/g;
+const IMG_REGEX = /<img[^>]+src="([^"]+)"/g;
 
 interface Link {
-	type: "link";
+	type: "link" | "image";
 	value: string;
 }
 
@@ -46,6 +47,8 @@ const isInternalLink = (
 
 export const extractFromHtml = (html: string, domain?: string): Link[] => {
 	const links = new Map<string, Link>();
+	
+	// Extract links from <a> tags
 	while (true) {
 		const match = LINK_REGEX.exec(html);
 		if (!match) {
@@ -55,6 +58,21 @@ export const extractFromHtml = (html: string, domain?: string): Link[] => {
 		if (!isInternalLink(link, domain)) continue;
 		links.set(link, { type: "link", value: link });
 	}
+	
+	// Reset regex state for image extraction
+	IMG_REGEX.lastIndex = 0;
+	
+	// Extract URLs from <img> tags
+	while (true) {
+		const match = IMG_REGEX.exec(html);
+		if (!match) {
+			break;
+		}
+		const src = match[1];
+		if (!isInternalLink(src, domain)) continue;
+		links.set(src, { type: "image", value: src });
+	}
+	
 	return Array.from(links.values());
 };
 
