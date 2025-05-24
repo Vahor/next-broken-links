@@ -1,6 +1,7 @@
 import { statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import type { NextConfig } from "next";
+import type { CliOptions } from "..";
 import { debug, value } from "../logger";
 
 export interface ExtendedNextConfig extends NextConfig {
@@ -30,12 +31,13 @@ export default async function parseNextConfig(
 	path: string | undefined,
 ): Promise<ExtendedNextConfig> {
 	let finalPath: string | undefined = undefined;
+	const cwd = process.cwd();
 	if (!path) {
-		finalPath = getDefaultConfigPath(process.cwd());
+		finalPath = getDefaultConfigPath(cwd);
 		if (!finalPath) {
 			throw new Error(
 				`Could not find a next config file in ${value(
-					process.cwd(),
+					cwd,
 				)}. Please specify a path using the ${value("--config")} option.`,
 			);
 		}
@@ -51,8 +53,8 @@ export default async function parseNextConfig(
 		}
 	}
 
-	const cleanPath = join(process.cwd(), finalPath);
-	debug(`cwd: ${value(process.cwd())}`);
+	const cleanPath = join(cwd, finalPath);
+	debug(`cwd: ${value(cwd)}`);
 	debug(`Reading next config file from ${value(cleanPath)} `);
 	const config = (await import(cleanPath).then(
 		(mod) => mod.default,
@@ -89,4 +91,32 @@ const checkSupportedConfiguration = (config: NextConfig) => {
 		);
 	}
 	return true;
+};
+
+export const createFallbackConfig = (
+	options: CliOptions,
+): ExtendedNextConfig => {
+	const cwd = process.cwd();
+	const output = options.output === "export" ? "export" : undefined;
+	let outputDir: string;
+
+	if (options.distDir) {
+		outputDir = join(cwd, options.distDir);
+		if (output !== "export") {
+			outputDir = join(outputDir, "server", "app");
+		}
+	} else if (output === "export") {
+		outputDir = join(cwd, "out");
+	} else {
+		outputDir = join(cwd, ".next", "server", "app");
+	}
+
+	return {
+		output,
+		distDir: options.distDir || (output === "export" ? "out" : ".next"),
+		_vahor: {
+			outputDir,
+			root: cwd,
+		},
+	};
 };

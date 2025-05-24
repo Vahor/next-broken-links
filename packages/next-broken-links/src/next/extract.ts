@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { XMLParser } from "fast-xml-parser";
-import type { Options } from "..";
+import type { CliOptions } from "..";
 import { debug } from "../logger";
 import type { ExtendedNextConfig } from "./parse-next-config";
 
@@ -90,7 +90,7 @@ export const extractFromSitemap = (xml: string, domain?: string): Link[] => {
 export const extractLinks = async (
 	filePath: string,
 	config: ExtendedNextConfig,
-	options: Options,
+	options: CliOptions,
 ): Promise<Links> => {
 	const fullPath = join(config._vahor.outputDir, filePath);
 	if (fullPath.endsWith(".html")) {
