@@ -66,6 +66,19 @@ If you have broken links, it will output the following:
 - `--no-config` - Skip parsing next.config file and use provided options.
   - Useful to avoid installing dependencies present in next.config.js (e.g., contentlayer).
 
+#### Example
+
+```bash
+# For static export without parsing config
+bunx @vahor/next-broken-links --no-config --output export
+
+# For standard build with custom dist directory
+bunx @vahor/next-broken-links --no-config --distDir custom-dist
+
+# For static export with custom dist directory
+bunx @vahor/next-broken-links --no-config --output export --distDir custom-out
+```
+
 # Who is using this?
 
 - [vahor.fr](https://vahor.fr/project/next-broken-links) [(source)](https://github.com/Vahor/vahor.fr/blob/main/package.json)
