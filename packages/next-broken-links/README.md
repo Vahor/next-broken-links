@@ -59,6 +59,12 @@ If you have broken links, it will output the following:
 - `--domain <domain>` - Domain to check links against. 
   - If not set, non relative links will be ignored.
 - `--verbose` - Enable verbose mode.
+- `--output <type>` - Output type: 'export' for static export, undefined for standard build.
+  - Only used when `--no-config` is specified.
+- `--distDir <path>` - Custom dist directory path.
+  - Only used when `--no-config` is specified.
+- `--no-config` - Skip parsing next.config file and use provided options.
+  - Useful to avoid installing dependencies present in next.config.js (e.g., contentlayer).
 
 # Who is using this?
 

@@ -1,9 +1,10 @@
+import { join } from "node:path";
 import { Command } from "@commander-js/extra-typings";
 import { name, version } from "../package.json" assert { type: "json" };
 import { debug, error, success, withProgress } from "./logger";
 import { crawlNextOutput, crawlPublicAssets } from "./next/crawler";
 import { extractLinks } from "./next/extract";
-import parseNextConfig from "./next/parse-next-config";
+import parseNextConfig, { type ExtendedNextConfig } from "./next/parse-next-config";
 import { checkValidLinks } from "./next/validate-links";
 
 const program = new Command()
@@ -12,7 +13,10 @@ const program = new Command()
 	.description("Find broken links in your Next.js project.")
 	.option("-c, --config <path>", "next.config.js path")
 	.option("--domain <domain>", "Domain to check links against")
-	.option("-v, --verbose", "Enable verbose mode");
+	.option("-v, --verbose", "Enable verbose mode")
+	.option("--output <type>", "Output type: 'export' for static export, undefined for standard build")
+	.option("--distDir <path>", "Custom dist directory path")
+	.option("--no-config", "Skip parsing next.config file and use provided options");
 
 program.parse();
 
@@ -20,17 +24,52 @@ const options = program.opts();
 process.env.DEBUG = options.verbose ? "1" : "";
 export type Options = typeof options;
 
+const createFallbackConfig = (options: Options): ExtendedNextConfig => {
+	const cwd = process.cwd();
+	const output = options.output === "export" ? "export" : undefined;
+	let outputDir: string;
+	
+	if (options.distDir) {
+		outputDir = join(cwd, options.distDir);
+		if (output !== "export") {
+			outputDir = join(outputDir, "server", "app");
+		}
+	} else if (output === "export") {
+		outputDir = join(cwd, "out");
+	} else {
+		outputDir = join(cwd, ".next", "server", "app");
+	}
+
+	return {
+		output,
+		distDir: options.distDir || (output === "export" ? "out" : ".next"),
+		_vahor: {
+			outputDir,
+			root: cwd,
+		},
+	};
+};
+
 const main = async () => {
-	const config = (
-		await withProgress([parseNextConfig(options.config)], {
-			title: "Parsing next config",
-			progress: (completed) => `Parsing next config: ${completed}/${1}`,
-			success: "Parsed next config",
-		})
-	)[0];
-	if (!config) {
-		console.log(`${error} Failed to parse next config`);
-		process.exit(1);
+	let config: ExtendedNextConfig;
+	
+	if (options.noConfig) {
+		debug("Skipping next.config parsing due to --no-config flag");
+		config = createFallbackConfig(options);
+		debug(`Using fallback config: ${JSON.stringify(config, null, 2)}`);
+	} else {
+		const parsedConfig = (
+			await withProgress([parseNextConfig(options.config)], {
+				title: "Parsing next config",
+				progress: (completed) => `Parsing next config: ${completed}/${1}`,
+				success: "Parsed next config",
+			})
+		)[0];
+		if (!parsedConfig) {
+			console.log(`${error} Failed to parse next config`);
+			process.exit(1);
+		}
+		config = parsedConfig;
 	}
 	const htmlPages = crawlNextOutput(config);
 	const publicAssets = crawlPublicAssets(config);
