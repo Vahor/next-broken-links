@@ -1,5 +1,13 @@
 # @vahor/next-broken-links
 
+## 0.2.0
+
+### Minor Changes
+
+- [#53](https://github.com/Vahor/next-broken-links/pull/53) [`750180d`](https://github.com/Vahor/next-broken-links/commit/750180dd8871ba97e1427e7375190d51ef2acb7f) Thanks [@Vahor](https://github.com/Vahor)! - add broken link checking for img tags
+
+- [#55](https://github.com/Vahor/next-broken-links/pull/55) [`5836e32`](https://github.com/Vahor/next-broken-links/commit/5836e320b263b882ba7f9edb2a306e05000ef2ec) Thanks [@Vahor](https://github.com/Vahor)! - add --no-config mode with --output and --distDir options
+
 ## 0.1.4
 
 ### Patch Changes

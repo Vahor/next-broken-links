@@ -1,6 +1,6 @@
 {
 	"name": "@vahor/next-broken-links",
-	"version": "0.1.4",
+	"version": "0.2.0",
 	"description": "A tool to find broken links in your Next.js project",
 	"license": "MIT",
 	"repository": {
