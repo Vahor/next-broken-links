@@ -1,10 +1,12 @@
-import { join } from "node:path";
 import { Command } from "@commander-js/extra-typings";
 import { name, version } from "../package.json" assert { type: "json" };
 import { debug, error, success, withProgress } from "./logger";
 import { crawlNextOutput, crawlPublicAssets } from "./next/crawler";
 import { extractLinks } from "./next/extract";
-import parseNextConfig, { createFallbackConfig, type ExtendedNextConfig } from "./next/parse-next-config";
+import parseNextConfig, {
+	createFallbackConfig,
+	type ExtendedNextConfig,
+} from "./next/parse-next-config";
 import { checkValidLinks } from "./next/validate-links";
 
 const program = new Command()
@@ -14,20 +16,26 @@ const program = new Command()
 	.option("-c, --config <path>", "next.config.js path")
 	.option("--domain <domain>", "Domain to check links against")
 	.option("-v, --verbose", "Enable verbose mode")
-	.option("--output <type>", "Output type: 'export' for static export, undefined for standard build")
+	.option(
+		"--output <type>",
+		"Output type: 'export' for static export, undefined for standard build",
+	)
 	.option("--distDir <path>", "Custom dist directory path")
-	.option("--no-config", "Skip parsing next.config file and use provided options");
+	.option(
+		"--no-config",
+		"Skip parsing next.config file and use provided options",
+	);
 
 program.parse();
 
 const options = program.opts();
 process.env.DEBUG = options.verbose ? "1" : "";
-export type Options = typeof options;
+export type CliOptions = typeof options;
 
 const main = async () => {
 	let config: ExtendedNextConfig;
-	
-	if (options.noConfig) {
+
+	if (options.config === false) {
 		debug("Skipping next.config parsing due to --no-config flag");
 		config = createFallbackConfig(options);
 		debug(`Using fallback config: ${JSON.stringify(config, null, 2)}`);
