@@ -9,7 +9,7 @@ concurrency:
 
 env:
   NEXT_TELEMETRY_DISABLED: 1
-  EXPECTED_COUNT: 5
+  EXPECTED_COUNT: 7
 
 jobs:
   output:

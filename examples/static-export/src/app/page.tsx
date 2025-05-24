@@ -30,6 +30,18 @@ export default function Home() {
 			<Link href="https://vahor.fr/sitemap.xml?a">
 				sitemap.xml with domain and query params is correct
 			</Link>
+
+			{/* Image examples for testing broken link checking */}
+			<img src="/something.json" alt="This image points to a valid file" />
+			<img src="/invalid-image.jpg" alt="This image is broken" />
+			<img
+				src="https://vahor.fr/something.json"
+				alt="External image pointing to valid file"
+			/>
+			<img
+				src="https://vahor.fr/invalid-external.png"
+				alt="External image that doesn't exist"
+			/>
 		</div>
 	);
 }

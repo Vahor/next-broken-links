@@ -18,6 +18,7 @@ But that's also a limit of our tool as we can only check server side rendered li
 - Check broken links for public assets (images, json etc...)
 - Check broken links for sitemap.xml
 - Check broken links for all `<a>` tags (including `<Link>`)
+- Check broken links for all `<img>` tags
 
 ## Installation
 
