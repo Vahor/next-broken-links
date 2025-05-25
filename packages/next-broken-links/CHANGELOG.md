@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.3.0
+
+### Minor Changes
+
+- [#56](https://github.com/Vahor/next-broken-links/pull/56) [`b130bb9`](https://github.com/Vahor/next-broken-links/commit/b130bb9efee97cf1cba98375be5afbd3e3e2cbee) Thanks [@Vahor](https://github.com/Vahor)! - update output format
+
 ## 0.2.0
 
 ### Minor Changes
