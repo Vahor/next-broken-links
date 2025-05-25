@@ -1,6 +1,6 @@
 import type { Links } from "./extract";
 
-interface BrokenLink {
+export interface BrokenLink {
 	file: string;
 	link: string;
 	type: "link" | "image";
