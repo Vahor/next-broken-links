@@ -1,5 +1,6 @@
 import { Command } from "@commander-js/extra-typings";
 import { name, version } from "../package.json" assert { type: "json" };
+import { prettyPrintResults } from "./formatter";
 import { debug, error, success, withProgress } from "./logger";
 import { crawlNextOutput, crawlPublicAssets } from "./next/crawler";
 import { extractLinks } from "./next/extract";
@@ -88,13 +89,10 @@ const main = async () => {
 	}
 
 	if (result.length) {
-		console.log(`${error} Found ${result.length} broken links`);
-		for (const link of result) {
-			console.log(`\t${link.file}: ${link.link}`);
-		}
+		prettyPrintResults(result);
 		process.exit(1);
 	} else {
-		console.log(`${success} No broken links found`);
+		console.log(`${success} Found 0 broken links`);
 		process.exit(0);
 	}
 };

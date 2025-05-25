@@ -42,15 +42,23 @@ It will output the following:
 
 ```bash
 ✔ Extracted links from all pages
-✔ No broken links found
+✔ Found 0 broken links
 ```
 
 If you have broken links, it will output the following:
 
 ```
 ✔ Extracted links from all pages
-✖ error Found 1 broken links
-        /path/to/page.html: broken-link
+✖ Found 5 broken links
+
+index.html (4 broken links)
+        - /hello/world/again
+        - /incorrect.json
+        - https://vahor.fr/invalid.json
+        - https://vahor.fr/this/also/fails
+
+sitemap.xml (1 broken links)
+        - https://vahor.fr/this/should/fail
 ```
 
 ### Options

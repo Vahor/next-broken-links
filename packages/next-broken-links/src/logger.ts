@@ -3,7 +3,7 @@ import ora from "ora";
 
 export const value = (value: string) => chalk.blue(value);
 
-export const error = chalk.red("✖ error");
+export const error = chalk.red("✖");
 export const success = chalk.green("✔");
 
 export const debug = (message: string) => {
