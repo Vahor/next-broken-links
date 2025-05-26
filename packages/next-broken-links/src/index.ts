@@ -34,23 +34,19 @@ const options = program.opts();
 process.env.DEBUG = options.verbose ? "1" : "";
 export type CliOptions = typeof options;
 
-const validateCliOptions = (options: CliOptions) => {
-	// Validate --distDir parameter
-	if (options.distDir !== undefined) {
-		if (!existsSync(options.distDir)) {
-			console.log(`${error} Invalid --distDir parameter: "${options.distDir}" does not exist.`);
-			process.exit(1);
-		}
-		
-		const stats = statSync(options.distDir);
-		if (!stats.isDirectory()) {
-			console.log(`${error} Invalid --distDir parameter: "${options.distDir}" is not a directory.`);
-			process.exit(1);
-		}
+const validateExtendedConfig = (config: ExtendedNextConfig) => {
+	// Validate the actual output directory path from ExtendedNextConfig
+	if (!existsSync(config._vahor.outputDir)) {
+		console.log(`${error} Output directory does not exist: "${config._vahor.outputDir}"`);
+		process.exit(1);
+	}
+	
+	const stats = statSync(config._vahor.outputDir);
+	if (!stats.isDirectory()) {
+		console.log(`${error} Output path is not a directory: "${config._vahor.outputDir}"`);
+		process.exit(1);
 	}
 };
-
-validateCliOptions(options);
 
 const main = async () => {
 	let config: ExtendedNextConfig;
@@ -73,6 +69,9 @@ const main = async () => {
 		}
 		config = parsedConfig;
 	}
+	
+	validateExtendedConfig(config);
+	
 	const htmlPages = crawlNextOutput(config);
 	const publicAssets = crawlPublicAssets(config);
 
