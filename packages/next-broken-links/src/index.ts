@@ -1,4 +1,4 @@
-import { Command } from "@commander-js/extra-typings";
+import { Command, Option } from "@commander-js/extra-typings";
 import { existsSync, statSync } from "node:fs";
 import { name, version } from "../package.json" assert { type: "json" };
 import { prettyPrintResults } from "./formatter";
@@ -18,9 +18,9 @@ const program = new Command()
 	.option("-c, --config <path>", "next.config.js path")
 	.option("--domain <domain>", "Domain to check links against")
 	.option("-v, --verbose", "Enable verbose mode")
-	.option(
-		"--output <type>",
-		"Output type: 'export' for static export, undefined for standard build",
+	.addOption(
+		new Option("--output <type>", "Output type: 'export' for static export, undefined for standard build")
+			.choices(["export"])
 	)
 	.option("--distDir <path>", "Custom dist directory path")
 	.option(
@@ -35,12 +35,6 @@ process.env.DEBUG = options.verbose ? "1" : "";
 export type CliOptions = typeof options;
 
 const validateCliOptions = (options: CliOptions) => {
-	// Validate --output parameter
-	if (options.output !== undefined && options.output !== "export") {
-		console.log(`${error} Invalid --output parameter: "${options.output}". Must be "export" or undefined.`);
-		process.exit(1);
-	}
-
 	// Validate --distDir parameter
 	if (options.distDir !== undefined) {
 		if (!existsSync(options.distDir)) {
