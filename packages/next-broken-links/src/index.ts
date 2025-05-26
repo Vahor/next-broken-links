@@ -1,4 +1,5 @@
 import { Command } from "@commander-js/extra-typings";
+import { existsSync, statSync } from "node:fs";
 import { name, version } from "../package.json" assert { type: "json" };
 import { prettyPrintResults } from "./formatter";
 import { debug, error, success, withProgress } from "./logger";
@@ -32,6 +33,30 @@ program.parse();
 const options = program.opts();
 process.env.DEBUG = options.verbose ? "1" : "";
 export type CliOptions = typeof options;
+
+const validateCliOptions = (options: CliOptions) => {
+	// Validate --output parameter
+	if (options.output !== undefined && options.output !== "export") {
+		console.log(`${error} Invalid --output parameter: "${options.output}". Must be "export" or undefined.`);
+		process.exit(1);
+	}
+
+	// Validate --distDir parameter
+	if (options.distDir !== undefined) {
+		if (!existsSync(options.distDir)) {
+			console.log(`${error} Invalid --distDir parameter: "${options.distDir}" does not exist.`);
+			process.exit(1);
+		}
+		
+		const stats = statSync(options.distDir);
+		if (!stats.isDirectory()) {
+			console.log(`${error} Invalid --distDir parameter: "${options.distDir}" is not a directory.`);
+			process.exit(1);
+		}
+	}
+};
+
+validateCliOptions(options);
 
 const main = async () => {
 	let config: ExtendedNextConfig;
