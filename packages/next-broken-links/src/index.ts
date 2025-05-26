@@ -1,4 +1,5 @@
-import { Command } from "@commander-js/extra-typings";
+import { existsSync, statSync } from "node:fs";
+import { Command, Option } from "@commander-js/extra-typings";
 import { name, version } from "../package.json" assert { type: "json" };
 import { prettyPrintResults } from "./formatter";
 import { debug, error, success, withProgress } from "./logger";
@@ -17,9 +18,11 @@ const program = new Command()
 	.option("-c, --config <path>", "next.config.js path")
 	.option("--domain <domain>", "Domain to check links against")
 	.option("-v, --verbose", "Enable verbose mode")
-	.option(
-		"--output <type>",
-		"Output type: 'export' for static export, undefined for standard build",
+	.addOption(
+		new Option(
+			"--output <type>",
+			"Output type: 'export' for static export, undefined for standard build",
+		).choices(["export"]),
 	)
 	.option("--distDir <path>", "Custom dist directory path")
 	.option(
@@ -32,6 +35,24 @@ program.parse();
 const options = program.opts();
 process.env.DEBUG = options.verbose ? "1" : "";
 export type CliOptions = typeof options;
+
+const validateExtendedConfig = (config: ExtendedNextConfig) => {
+	// Validate the actual output directory path from ExtendedNextConfig
+	if (!existsSync(config._vahor.outputDir)) {
+		console.log(
+			`${error} Output directory does not exist: "${config._vahor.outputDir}"`,
+		);
+		process.exit(1);
+	}
+
+	const stats = statSync(config._vahor.outputDir);
+	if (!stats.isDirectory()) {
+		console.log(
+			`${error} Output path is not a directory: "${config._vahor.outputDir}"`,
+		);
+		process.exit(1);
+	}
+};
 
 const main = async () => {
 	let config: ExtendedNextConfig;
@@ -54,6 +75,9 @@ const main = async () => {
 		}
 		config = parsedConfig;
 	}
+
+	validateExtendedConfig(config);
+
 	const htmlPages = crawlNextOutput(config);
 	const publicAssets = crawlPublicAssets(config);
 
