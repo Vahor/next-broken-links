@@ -40,6 +40,6 @@
 		"commander": "^14.0.0",
 		"fast-xml-parser": "^5.2.3",
 		"ora": "^8.2.0",
-		"tinyglobby": "^0.2.13"
+		"tinyglobby": "^0.2.14"
 	}
 }
