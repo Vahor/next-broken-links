@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.3.1
+
+### Patch Changes
+
+- [#59](https://github.com/Vahor/next-broken-links/pull/59) [`43d1dc4`](https://github.com/Vahor/next-broken-links/commit/43d1dc46306ef1641e09f80b824c83a2b6e45e09) Thanks [@Vahor](https://github.com/Vahor)! - add CLI parameter validation
+
 ## 0.3.0
 
 ### Minor Changes
