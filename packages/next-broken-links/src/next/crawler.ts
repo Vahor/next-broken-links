@@ -18,6 +18,7 @@ export const crawlNextOutput = (config: ExtendedNextConfig) => {
 			ignore: ["**/node_modules/**", "**/_next/**", "**/*/*.js", "**/*/*.json"],
 		},
 	);
+
 	debug(
 		`Found ${files.length} files in ${config._vahor.outputDir}: [${files.join(", ")}]`,
 	);
@@ -30,6 +31,7 @@ export const crawlPublicAssets = (config: ExtendedNextConfig) => {
 		cwd: publicDir,
 		onlyFiles: true,
 	});
+
 	debug(`Found ${files.length} assets in ${publicDir}: [${files.join(", ")}]`);
 	return files;
 };

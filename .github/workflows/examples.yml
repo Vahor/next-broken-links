@@ -44,7 +44,7 @@ jobs:
       - name: Check links
         working-directory: examples/static-export
         run: |
-          output=$(bun run ../../packages/next-broken-links/dist/index.js --domain vahor.fr || true)
+          output=$(bun run ../../packages/next-broken-links/dist/index.js --domain vahor.fr --ignore "**/*.zip" || true)
           echo "$output"
           actual_count=$(echo "$output" | grep -o "Found [0-9]* broken links" | grep -o "[0-9]*")
           actual_count=${actual_count:-0}

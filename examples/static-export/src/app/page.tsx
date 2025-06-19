@@ -30,6 +30,12 @@ export default function Home() {
 			<Link href="https://vahor.fr/sitemap.xml?a">
 				sitemap.xml with domain and query params is correct
 			</Link>
+			<Link href="https://vahor.fr/invalid-zip-file.zip">
+				This file does not exist but is ignored
+			</Link>
+			<Link href="/another-invalid-zip-file.zip">
+				This file does not exist and is not ignored
+			</Link>
 
 			{/* Image examples for testing broken link checking */}
 			<img src="/something.json" alt="This image points to a valid file" />

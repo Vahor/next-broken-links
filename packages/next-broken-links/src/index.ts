@@ -11,6 +11,10 @@ import parseNextConfig, {
 } from "./next/parse-next-config";
 import { checkValidLinks } from "./next/validate-links";
 
+const collect = (value: string, previous: string[] = []) => {
+	return previous.concat([value]);
+};
+
 const program = new Command()
 	.name(name)
 	.version(version)
@@ -28,6 +32,11 @@ const program = new Command()
 	.option(
 		"--no-config",
 		"Skip parsing next.config file and use provided options",
+	)
+	.option(
+		"--ignore <pattern>",
+		"Ignore links matching the given pattern",
+		collect,
 	);
 
 program.parse();
@@ -56,6 +65,9 @@ const validateExtendedConfig = (config: ExtendedNextConfig) => {
 
 const main = async () => {
 	let config: ExtendedNextConfig;
+	debug(
+		`Starting next-broken-links with options: ${JSON.stringify(options, null, 2)}`,
+	);
 
 	if (options.config === false) {
 		debug("Skipping next.config parsing due to --no-config flag");
