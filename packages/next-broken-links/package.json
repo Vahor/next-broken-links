@@ -15,11 +15,17 @@
 		"@vahor/next-broken-links": "./dist/index.js"
 	},
 	"private": false,
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"author": {
 		"email": "me@vahor.fr"
 	},
-	"keywords": ["next", "cli", "linter"],
+	"keywords": [
+		"next",
+		"cli",
+		"linter"
+	],
 	"peerDependencies": {
 		"typescript": "^5"
 	},
@@ -38,8 +44,8 @@
 		"@commander-js/extra-typings": "^14.0.0",
 		"chalk": "^5.4.1",
 		"commander": "^14.0.0",
-		"fast-xml-parser": "^5.2.3",
+		"fast-xml-parser": "^5.2.5",
 		"ora": "^8.2.0",
-		"tinyglobby": "^0.2.13"
+		"tinyglobby": "^0.2.14"
 	}
 }

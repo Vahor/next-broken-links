@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, mock, test } from "bun:test";
+import { beforeEach, describe, expect, test } from "bun:test";
 import { extractFromHtml } from "../src/next/extract";
 
 beforeEach(() => {
