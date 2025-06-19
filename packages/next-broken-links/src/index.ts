@@ -1,6 +1,7 @@
 import { existsSync, statSync } from "node:fs";
 import { Command, Option } from "@commander-js/extra-typings";
-import { name, version } from "../package.json" assert { type: "json" };
+import { name, version } from "../package.json" with { type: "json" };
+
 import { prettyPrintResults } from "./formatter";
 import { debug, error, success, withProgress } from "./logger";
 import { crawlNextOutput, crawlPublicAssets } from "./next/crawler";

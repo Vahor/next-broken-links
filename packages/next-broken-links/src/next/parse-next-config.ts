@@ -21,7 +21,7 @@ const getDefaultConfigPath = (cwd: string) => {
 			if (statSync(filePath).isFile()) {
 				return fileName;
 			}
-		} catch (e) {
+		} catch (_e) {
 			// ignore
 		}
 	}
@@ -30,7 +30,7 @@ const getDefaultConfigPath = (cwd: string) => {
 export default async function parseNextConfig(
 	path: string | undefined,
 ): Promise<ExtendedNextConfig> {
-	let finalPath: string | undefined = undefined;
+	let finalPath: string | undefined;
 	const cwd = process.cwd();
 	if (!path) {
 		finalPath = getDefaultConfigPath(cwd);

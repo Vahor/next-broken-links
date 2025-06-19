@@ -25,13 +25,13 @@ export const checkValidLinks = async (files: Links[]) => {
 				relativePath = relativePath.split("/").slice(1).join("/");
 				relativePath = `/${relativePath}`;
 			}
-			//
+
 			// remove query params
-			// biome-ignore lint/style/noNonNullAssertion: <explanation>
+			// biome-ignore lint/style/noNonNullAssertion: we now it's there
 			relativePath = relativePath.split("?")[0]!;
 
 			// remove hash
-			// biome-ignore lint/style/noNonNullAssertion: <explanation>
+			// biome-ignore lint/style/noNonNullAssertion: we now it's there
 			relativePath = relativePath.split("#")[0]!;
 
 			if (
