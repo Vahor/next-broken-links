@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { XMLParser } from "fast-xml-parser";
+import { default as pm } from "picomatch";
 import type { CliOptions } from "..";
 import { debug } from "../logger";
 import type { ExtendedNextConfig } from "./parse-next-config";
@@ -92,26 +93,22 @@ export const extractLinks = async (
 	config: ExtendedNextConfig,
 	options: CliOptions,
 ): Promise<Links> => {
+	const isMatch = options.ignore ? pm(options.ignore) : () => false;
 	const fullPath = join(config._vahor.outputDir, filePath);
+	let links: Link[] = [];
 	if (fullPath.endsWith(".html")) {
 		const raw = await readFile(fullPath, "utf8");
-		return {
-			file: filePath,
-			links: extractFromHtml(raw, options.domain),
-		};
+		links = extractFromHtml(raw, options.domain);
 	}
 	if (
 		fullPath.endsWith("sitemap.xml") ||
 		fullPath.endsWith("sitemap.xml.body")
 	) {
 		const raw = await readFile(fullPath, "utf8");
-		return {
-			file: filePath,
-			links: extractFromSitemap(raw, options.domain),
-		};
+		links = extractFromSitemap(raw, options.domain);
 	}
 	return {
 		file: filePath,
-		links: [],
+		links: links.filter((link) => !isMatch(link.value)),
 	};
 };

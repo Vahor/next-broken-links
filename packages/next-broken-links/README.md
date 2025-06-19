@@ -74,6 +74,8 @@ sitemap.xml (1 broken links)
   - Only used when `--no-config` is specified.
 - `--no-config` - Skip parsing next.config file and use provided options.
   - Useful to avoid installing dependencies present in next.config.js (e.g., contentlayer).
+- `--ignore <pattern>` - Ignore links matching the given pattern.
+  - Can be used multiple times. Example: `--ignore "**/*.zip" --ignore "**/*.json"` to ignore links ending with `.zip` or `.json`.
 
 #### Example
 
