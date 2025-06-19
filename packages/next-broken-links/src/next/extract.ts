@@ -93,7 +93,7 @@ export const extractLinks = async (
 	config: ExtendedNextConfig,
 	options: CliOptions,
 ): Promise<Links> => {
-	const isMatch = options.ignore ? pm(options.ignore) : undefined;
+	const isMatch = options.ignore ? pm(options.ignore) : () => false;
 	const fullPath = join(config._vahor.outputDir, filePath);
 	let links: Link[] = [];
 	if (fullPath.endsWith(".html")) {
@@ -109,6 +109,6 @@ export const extractLinks = async (
 	}
 	return {
 		file: filePath,
-		links: links.filter((link) => !isMatch?.(link.value)),
+		links: links.filter((link) => !isMatch(link.value)),
 	};
 };
