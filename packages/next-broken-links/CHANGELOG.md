@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.4.0
+
+### Minor Changes
+
+- [#72](https://github.com/Vahor/next-broken-links/pull/72) [`b4d3146`](https://github.com/Vahor/next-broken-links/commit/b4d314613d8ee31afc714d20da41010ce09d603e) Thanks [@Vahor](https://github.com/Vahor)! - add `--ignore` cli option
+
 ## 0.3.1
 
 ### Patch Changes
