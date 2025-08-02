@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.4.1
+
+### Patch Changes
+
+- [#90](https://github.com/Vahor/next-broken-links/pull/90) [`16f4291`](https://github.com/Vahor/next-broken-links/commit/16f4291f515e7714b311966712cbd3c99e152e8a) Thanks [@Vahor](https://github.com/Vahor)! - update deps
+
 ## 0.4.0
 
 ### Minor Changes
