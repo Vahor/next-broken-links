@@ -29,7 +29,7 @@
 		"@types/bun": "latest",
 		"bun-plugin-dts": "^0.3.0",
 		"husky": "^9.1.7",
-		"lint-staged": "^16.1.2",
+		"lint-staged": "^16.1.4",
 		"pkg-pr-new": "^0.0.54",
 		"typescript": "^5.9"
 	},
