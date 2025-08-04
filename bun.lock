@@ -31,7 +31,7 @@
     },
     "packages/next-broken-links": {
       "name": "@vahor/next-broken-links",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "bin": {
         "@vahor/next-broken-links": "./dist/index.js",
       },
