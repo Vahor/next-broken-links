@@ -39,7 +39,7 @@
 	},
 	"devDependencies": {
 		"@types/picomatch": "^4.0.2",
-		"next": "^15.4.5"
+		"next": "^15.5.2"
 	},
 	"dependencies": {
 		"@commander-js/extra-typings": "^14.0.0",
