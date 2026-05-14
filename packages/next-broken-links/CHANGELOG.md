@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.5.0
+
+### Minor Changes
+
+- [#127](https://github.com/Vahor/next-broken-links/pull/127) [`d7d53d8`](https://github.com/Vahor/next-broken-links/commit/d7d53d820301a3de3a7b34fe6c87731cbb119f9a) Thanks [@Vahor](https://github.com/Vahor)! - Improve link extraction and validation for HTML attributes, srcset images, sitemap indexes, sitemap images, base paths, trailing slashes, and async/function Next configs. Switch package builds to tsdown with generated declarations.
+
 ## 0.4.1
 
 ### Patch Changes
