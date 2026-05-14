@@ -35,7 +35,9 @@
 	},
 	"scripts": {
 		"prepare": "husky",
-		"format": "bunx @biomejs/biome check ./ --write"
+		"format": "bunx @biomejs/biome check ./ --write",
+		"ci:version": "bunx @changesets/cli version",
+		"ci:publish": "bunx @changesets/cli publish"
 	},
 	"lint-staged": {
 		"*": [
