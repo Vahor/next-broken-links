@@ -34,7 +34,7 @@ export default function Home() {
 				This file does not exist but is ignored
 			</Link>
 			<Link href="/another-invalid-zip-file.zip">
-				This file does not exist and is not ignored
+				This file does not exist and is also ignored
 			</Link>
 
 			{/* Image examples for testing broken link checking */}
