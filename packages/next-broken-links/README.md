@@ -16,9 +16,10 @@ But that's also a limit of our tool as we can only check server side rendered li
 ### Features
 
 - Check broken links for public assets (images, json etc...)
-- Check broken links for sitemap.xml
+- Check broken links for sitemap.xml and sitemap indexes
+- Check broken links for sitemap images
 - Check broken links for all `<a>` tags (including `<Link>`)
-- Check broken links for all `<img>` tags
+- Check broken links for all `<img>` `src` and `srcset` URLs
 
 ## Installation
 
@@ -65,7 +66,7 @@ sitemap.xml (1 broken links)
 
 - `--config <path>` - Path to your next.config.js file. 
   - If not set, it will try to find a `next.config.js` (mjs, cjs, ts or js) file in the current directory.
-- `--domain <domain>` - Domain to check links against. 
+- `--domain <domain>` - Domain to check links against. Accepts a hostname or URL.
   - If not set, non relative links will be ignored.
 - `--verbose` - Enable verbose mode.
 - `--output <type>` - Output type: 'export' for static export, undefined for standard build.
