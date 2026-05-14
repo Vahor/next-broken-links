@@ -15,7 +15,7 @@ export const crawlNextOutput = (config: ExtendedNextConfig) => {
 		{
 			cwd: config._vahor.outputDir,
 			onlyFiles: true,
-			ignore: ["**/node_modules/**", "**/_next/**", "**/*/*.js", "**/*/*.json"],
+			ignore: ["**/node_modules/**", "**/_next/**"],
 		},
 	);
 
