@@ -8,11 +8,12 @@
 		"url": "git+https://github.com/Vahor/next-broken-links.git",
 		"directory": "packages/next-broken-links"
 	},
-	"module": "index.ts",
+	"module": "./dist/index.js",
 	"type": "module",
 	"main": "./dist/index.js",
 	"bin": {
-		"@vahor/next-broken-links": "./dist/index.js"
+		"@vahor/next-broken-links": "./dist/index.js",
+		"next-broken-links": "./dist/index.js"
 	},
 	"private": false,
 	"files": [
@@ -27,10 +28,10 @@
 		"linter"
 	],
 	"peerDependencies": {
-		"typescript": "^5"
+		"typescript": ">=5 <7"
 	},
 	"scripts": {
-		"build": "bun run build.ts",
+		"build": "bunx tsdown",
 		"dev": "bun run --watch ./src/index.ts",
 		"typecheck": "tsc --noEmit --declaration"
 	},
@@ -38,16 +39,25 @@
 		"access": "public"
 	},
 	"devDependencies": {
-		"@types/picomatch": "^4.0.2",
-		"next": "^15.4.5"
+		"@types/picomatch": "^4.0.3",
+		"next": "^16.2.6"
 	},
 	"dependencies": {
 		"@commander-js/extra-typings": "^14.0.0",
-		"chalk": "^5.4.1",
-		"commander": "^14.0.0",
-		"fast-xml-parser": "^5.2.5",
-		"ora": "^8.2.0",
-		"picomatch": "^4.0.3",
-		"tinyglobby": "^0.2.14"
+		"chalk": "^5.6.2",
+		"commander": "^14.0.3",
+		"fast-xml-parser": "^5.8.0",
+		"htmlparser2": "^12.0.0",
+		"ora": "^9.4.0",
+		"picomatch": "^4.0.4",
+		"tinyglobby": "^0.2.16"
+	},
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
 	}
 }
