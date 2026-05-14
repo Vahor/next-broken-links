@@ -1,5 +1,6 @@
 import { statSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import type { NextConfig } from "next";
 import type { CliOptions } from "..";
 import { debug, value } from "../logger";
@@ -12,6 +13,15 @@ export interface ExtendedNextConfig extends NextConfig {
 }
 
 const validExtensions = ["js", "mjs", "cjs", "ts"];
+const validConfigPathPattern = /(^|[/\\])next\.config\.(?:[cm]?js|ts)$/;
+const productionBuildPhase = "phase-production-build";
+
+type NextConfigResult = NextConfig | Promise<NextConfig>;
+type NextConfigFunction = (
+	phase: string,
+	options: { defaultConfig: NextConfig },
+) => NextConfigResult;
+type NextConfigExport = NextConfig | Promise<NextConfig> | NextConfigFunction;
 
 const getDefaultConfigPath = (cwd: string) => {
 	for (const ext of validExtensions) {
@@ -25,6 +35,16 @@ const getDefaultConfigPath = (cwd: string) => {
 			// ignore
 		}
 	}
+};
+
+const resolveNextConfig = async (
+	configExport: NextConfigExport,
+): Promise<NextConfig> => {
+	const config = await configExport;
+	if (typeof config === "function") {
+		return config(productionBuildPhase, { defaultConfig: {} });
+	}
+	return config ?? {};
 };
 
 export default async function parseNextConfig(
@@ -44,8 +64,7 @@ export default async function parseNextConfig(
 	} else {
 		finalPath = path;
 
-		const pattern = /next\.config\.[cm]?js|ts$/;
-		if (!pattern.test(finalPath)) {
+		if (!validConfigPathPattern.test(finalPath)) {
 			// ts only works with bun
 			throw new Error(
 				`Invalid next config path: ${value(finalPath)}. Expected a path ending with ${value("next.config.js")} file (mjs, cjs, ts or js).`,
@@ -53,12 +72,13 @@ export default async function parseNextConfig(
 		}
 	}
 
-	const cleanPath = join(cwd, finalPath);
+	const cleanPath = resolve(cwd, finalPath);
 	debug(`cwd: ${value(cwd)}`);
 	debug(`Reading next config file from ${value(cleanPath)} `);
-	const config = (await import(cleanPath).then(
-		(mod) => mod.default,
-	)) as NextConfig;
+	const mod = await import(pathToFileURL(cleanPath).href);
+	const config = await resolveNextConfig(
+		(mod.default ?? mod) as NextConfigExport,
+	);
 	debug("Parsed next config file");
 	debug(JSON.stringify(config, null, 2));
 	checkSupportedConfiguration(config);
@@ -66,11 +86,10 @@ export default async function parseNextConfig(
 	let outputDir: string;
 	if (config.output === "export") {
 		outputDir = config.distDir || "out";
-		outputDir = join(dirname(cleanPath), outputDir);
+		outputDir = resolve(dirname(cleanPath), outputDir);
 	} else {
-		// if (config.output === undefined) {
 		outputDir = config.distDir || ".next";
-		outputDir = join(dirname(cleanPath), outputDir);
+		outputDir = resolve(dirname(cleanPath), outputDir);
 		outputDir = join(outputDir, "server", "app");
 	}
 	return {
@@ -101,7 +120,7 @@ export const createFallbackConfig = (
 	let outputDir: string;
 
 	if (options.distDir) {
-		outputDir = join(cwd, options.distDir);
+		outputDir = resolve(cwd, options.distDir);
 		if (output !== "export") {
 			outputDir = join(outputDir, "server", "app");
 		}
