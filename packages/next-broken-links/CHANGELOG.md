@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.5.1
+
+### Patch Changes
+
+- [#129](https://github.com/Vahor/next-broken-links/pull/129) [`84c9682`](https://github.com/Vahor/next-broken-links/commit/84c9682dbfd0e0b1d4518eaf3344f21e34d2ec34) Thanks [@Vahor](https://github.com/Vahor)! - Replace chalk with node:util.styleText and ora with picospinner for lighter dependencies
+
 ## 0.5.0
 
 ### Minor Changes
