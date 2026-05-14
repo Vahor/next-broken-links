@@ -25,14 +25,15 @@ export const withProgress = async <T>(
 ): Promise<T[]> => {
 	const spinner = ora(title).start();
 	let completed = 0;
-	for (const promise of promises) {
-		promise.then(() => {
-			completed++;
-			spinner.text = progress(completed);
-		});
-	}
+	const trackedPromises = promises.map(async (promise) => {
+		const result = await promise;
+		completed++;
+		spinner.text = progress(completed);
+		return result;
+	});
+
 	try {
-		const results = await Promise.all(promises);
+		const results = await Promise.all(trackedPromises);
 		if (success) {
 			spinner.succeed(success);
 		} else {
@@ -40,7 +41,7 @@ export const withProgress = async <T>(
 		}
 		return results;
 	} catch (e) {
-		spinner.fail(fail);
+		spinner.fail(fail ?? "Failed");
 		console.log(`${error} ${(e as Error).message}`);
 		if (process.env.DEBUG) {
 			throw e;

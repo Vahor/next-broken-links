@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { existsSync, statSync } from "node:fs";
 import { Command, Option } from "@commander-js/extra-typings";
 import { name, version } from "../package.json" with { type: "json" };
@@ -103,7 +104,11 @@ const main = async () => {
 			success: "Extracted links from all pages",
 		},
 	);
-	debug(`Found ${allLinks.length} links`);
+	const extractedLinkCount = allLinks.reduce(
+		(count, file) => count + file.links.length,
+		0,
+	);
+	debug(`Found ${extractedLinkCount} links across ${allLinks.length} files`);
 	debug(JSON.stringify(allLinks, null, 2));
 
 	const allAssets = publicAssets.map((file) => ({
@@ -112,10 +117,9 @@ const main = async () => {
 	}));
 
 	const result = (
-		await withProgress([checkValidLinks([...allLinks, ...allAssets])], {
+		await withProgress([checkValidLinks([...allLinks, ...allAssets], config)], {
 			title: "Checking links",
-			progress: (completed) =>
-				`Checking links: ${completed}/${allLinks.length}`,
+			progress: (completed) => `Checking links: ${completed}/1`,
 			success: "Checked links",
 		})
 	)[0];

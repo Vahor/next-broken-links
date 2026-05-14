@@ -1,10 +1,14 @@
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
+
+const projectRoot = dirname(fileURLToPath(import.meta.url));
+const workspaceRoot = resolve(projectRoot, "../..");
 
 const nextConfig: NextConfig = {
 	output: "export",
-
-	eslint: {
-		ignoreDuringBuilds: true,
+	turbopack: {
+		root: workspaceRoot,
 	},
 
 	typescript: {
