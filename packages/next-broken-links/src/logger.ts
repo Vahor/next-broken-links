@@ -1,14 +1,14 @@
-import chalk from "chalk";
-import ora from "ora";
+import { styleText } from "node:util";
+import { Spinner } from "picospinner";
 
-export const value = (value: string) => chalk.blue(value);
+export const value = (value: string) => styleText("blue", value);
 
-export const error = chalk.red("✖");
-export const success = chalk.green("✔");
+export const error = styleText("red", "✖");
+export const success = styleText("green", "✔");
 
 export const debug = (message: string) => {
 	if (process.env.DEBUG) {
-		console.debug(chalk.magenta(`[debug] ${message}`));
+		console.debug(styleText("magenta", `[debug] ${message}`));
 	}
 };
 
@@ -23,12 +23,13 @@ export const withProgress = async <T>(
 	promises: Promise<T>[],
 	{ title, progress, success, fail }: ProgressOptions,
 ): Promise<T[]> => {
-	const spinner = ora(title).start();
+	const spinner = new Spinner(title);
+	spinner.start();
 	let completed = 0;
 	const trackedPromises = promises.map(async (promise) => {
 		const result = await promise;
 		completed++;
-		spinner.text = progress(completed);
+		spinner.setText(progress(completed));
 		return result;
 	});
 
