@@ -6,7 +6,7 @@ export default defineConfig({
 	entry: ["./src/index.ts"],
 	outDir: "./dist",
 	clean: true,
-	minify: true,
+	minify: false,
 	sourcemap: false,
 	fixedExtension: false,
 	hash: false,
