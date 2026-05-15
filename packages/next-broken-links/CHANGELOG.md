@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.5.2
+
+### Patch Changes
+
+- [`2c36344`](https://github.com/Vahor/next-broken-links/commit/2c3634444fe8789ca0de7b7b7ee71726425f3668) Thanks [@Vahor](https://github.com/Vahor)! - Build the CLI before publishing so npm releases include the dist files required by the binary.
+
 ## 0.5.1
 
 ### Patch Changes
