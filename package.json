@@ -37,7 +37,7 @@
 		"prepare": "husky",
 		"format": "bunx @biomejs/biome check ./ --write",
 		"ci:version": "bunx @changesets/cli version",
-		"ci:publish": "bunx @changesets/cli publish"
+		"ci:publish": "bun run --cwd packages/next-broken-links build && bunx @changesets/cli publish"
 	},
 	"lint-staged": {
 		"*": [
