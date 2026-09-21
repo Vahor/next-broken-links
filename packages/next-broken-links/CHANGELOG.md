@@ -1,5 +1,11 @@
 # @vahor/next-broken-links
 
+## 0.5.3
+
+### Patch Changes
+
+- [`563c24d`](https://github.com/Vahor/next-broken-links/commit/563c24dbefb45b8f4f4c98447dbc5dc3b91a7431) Thanks [@Vahor](https://github.com/Vahor)! - Update dependencies and widen the TypeScript peer dependency range to support TypeScript 7.
+
 ## 0.5.2
 
 ### Patch Changes
