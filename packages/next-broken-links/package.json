@@ -49,7 +49,7 @@
 		"htmlparser2": "^12.0.0",
 		"picospinner": "^3.0.0",
 		"picomatch": "^4.0.4",
-		"tinyglobby": "^0.2.16"
+		"tinyglobby": "^0.2.17"
 	},
 	"types": "./dist/index.d.ts",
 	"exports": {
