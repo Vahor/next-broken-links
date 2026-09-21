@@ -28,7 +28,7 @@
 		"linter"
 	],
 	"peerDependencies": {
-		"typescript": ">=5 <7"
+		"typescript": ">=5 <8"
 	},
 	"scripts": {
 		"build": "bunx tsdown",
