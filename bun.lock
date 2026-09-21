@@ -44,7 +44,7 @@
         "fast-xml-parser": "^5.8.0",
         "htmlparser2": "^12.0.0",
         "picomatch": "^4.0.4",
-        "picospinner": "^3.0.0",
+        "picospinner": "^3.1.2",
         "tinyglobby": "^0.2.17",
       },
       "devDependencies": {
@@ -351,7 +351,7 @@
 
     "picomatch": ["picomatch@4.0.7", "", {}, "sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA=="],
 
-    "picospinner": ["picospinner@3.0.0", "", {}, "sha512-lGA1TNsmy2bxvRsTI2cV01kfTwKzZjnZSDmF9llYNyMHMrU4sP87lQ5taiIKm88L3cbswjl008nwyGc3WpNvzg=="],
+    "picospinner": ["picospinner@3.1.2", "", {}, "sha512-0Z++uU8mvB0EvCPAEUq9BGiPcSravzJ+RPdXfjYlzXffqsogisiKRQqI6ctrSSJ6n985vxrgKtQ5n4sRINcJZg=="],
 
     "pkg-pr-new": ["pkg-pr-new@0.0.88", "", { "bin": { "pkg-pr-new": "bin/cli.js" } }, "sha512-Xc6PMJ2gher0WZP+rtjefFk26hIb7V1PTLL30bmy1Z2vsRmSvqiss7Ag1XUdyplTGYzIlFNJp4L3vMNmK44N6g=="],
 
